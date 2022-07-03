@@ -9,6 +9,7 @@ import * as Linking from 'expo-linking';
 
 import { RootStackParamList } from '../types';
 
+// noinspection JSDeprecatedSymbols
 const linking: LinkingOptions<RootStackParamList> = {
   prefixes: [Linking.makeUrl('/')],
   config: {

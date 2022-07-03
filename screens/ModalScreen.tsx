@@ -16,7 +16,7 @@ export default class ModalScreen extends Component<any> {
                 source={
                     {html: email.html || `<html><body>${email.body}</body></html>`}
                 }
-                javaScriptEnabled={false} 
+                javaScriptEnabled={false}
                 style={styles.frame}
             />
         );

@@ -1,4 +1,3 @@
-
 //this is not a hack
 export default class ModalShareThingy {
     

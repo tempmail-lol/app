@@ -38,7 +38,7 @@ export default function EmailScreen({navigation}: RootTabScreenProps<'TabOne'>) 
                     const emails = await checkInboxAsync(CoolStorage.token);
                     //add the emails to the storage
                     CoolStorage.emails = CoolStorage.emails.concat(emails);
-                } catch (e) { //if the token is invalid
+                } catch(e) { //if the token is invalid
                     await reloadAsync();
                 }
             }
