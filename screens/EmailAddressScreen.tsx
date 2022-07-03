@@ -157,6 +157,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         alignItems: "center",
         display: "flex",
+        flexDirection: "row",
     },
     button: {
         borderStyle: "solid",
