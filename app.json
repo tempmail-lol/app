@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "tempmail.lol-app",
-    "slug": "tempmail.lol-app",
+    "name": "TempMail - Temporary Email Provider",
+    "slug": "tempmail-lol-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -26,7 +26,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "net.epolite.tempmail"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
