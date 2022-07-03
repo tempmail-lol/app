@@ -1,35 +1,51 @@
-import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet } from 'react-native';
+import {StatusBar} from 'expo-status-bar';
+import {StyleSheet} from 'react-native';
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import {Text, View} from '../components/Themed';
+import {Email} from "tempmail.lol";
+import {WebView} from "react-native-webview";
+import {Component} from "react";
 
-export default function ModalScreen() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Modal</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/ModalScreen.tsx" />
-
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
-      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
-    </View>
-  );
+export default class ModalScreen extends Component<any> {
+    render() {
+        const email: Email = this.props.route.params;
+        console.log(email);
+        return (
+            <WebView
+                originWhitelist={['*']}
+                source={
+                    {html: email.html || `<html><body>${email.body}</body></html>`}
+                }
+                javaScriptEnabled={false} 
+                style={styles.frame}
+            />
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
+    container: {
+        flex: 1,
+        flexDirection: "column",
+        alignItems: 'center',
+        marginTop: "7%",
+    },
+    sender: {
+        fontSize: 36,
+        fontWeight: 'bold',
+    },
+    subject: {
+        fontSize: 30,
+        marginTop: "3%"
+    },
+    frame: {
+        backgroundColor: "#fff",
+        width: "100%",
+        height: "75%",
+    },
+    wvContainer: {
+        flex: 1,
+        flexDirection: "column",
+        backgroundColor: "#fff",
+    }
 });

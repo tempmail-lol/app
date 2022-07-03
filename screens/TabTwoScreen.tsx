@@ -6,9 +6,8 @@ import { Text, View } from '../components/Themed';
 export default function TabTwoScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
+      <Text>TempMail.lol Mobile App Beta</Text>
+      <Text>Thank you for testing!  Please put feedback in #mobile-feedback in the Discord server.</Text>
     </View>
   );
 }
@@ -19,11 +18,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  title: {
+  sender: {
     fontSize: 20,
     fontWeight: 'bold',
   },
-  separator: {
+  subject: {
     marginVertical: 30,
     height: 1,
     width: '80%',

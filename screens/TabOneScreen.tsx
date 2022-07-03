@@ -1,32 +1,105 @@
-import { StyleSheet } from 'react-native';
+import {FlatList, Pressable, StyleSheet} from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
-import { RootTabScreenProps } from '../types';
+import {Text, View} from '../components/Themed';
+import {RootTabScreenProps} from '../types';
+import CoolStorage from "../util/CoolStorage";
+import {useState} from "react";
+import {Email} from "tempmail.lol";
+import ModalShareThingy from "../util/ModalShareThingy";
 
-export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
-    </View>
-  );
+function openEmail(email: Email): any {
+    console.log(`pressed`)
+    //open a modal with the email html
+    ModalShareThingy.modal.navigate("Email View (swipe down to close)", email);
+}
+
+const blank = StyleSheet.create({
+    bg: {
+        backgroundColor: "#555555",
+    },
+});
+const alt = StyleSheet.create({
+    bg: {
+        backgroundColor: "#333333",
+    },
+});
+
+function formatDate(date: number): string {
+    //format the date in the format:
+    //Mon, Jan 1, 2020
+    const d = new Date(date);
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    return `${d.getDate()} ${months[d.getMonth()]}, ${d.getFullYear()}`;
+}
+
+function createEmailElement(email: Email, odd: boolean) {
+    
+    let ss = odd ? blank : alt;
+    
+    return (
+        <Pressable onPress={() => openEmail(email)} style={ss.bg}>
+            <Text style={styles.sender}>Sender: {email.from}</Text>
+            <Text style={styles.subject}>Subject: {email.subject}</Text>
+            <Text style={styles.date}>Time sent: {formatDate(email.date)}</Text>
+        </Pressable>
+    );
+}
+
+export default function TabOneScreen({navigation}: RootTabScreenProps<'TabOne'>) {
+    
+    const [emails, setEmails] = useState(CoolStorage.emails);
+    
+    setInterval(() => {
+        setEmails(CoolStorage.emails);
+    }, 1000);
+    
+    return (
+        <View style={styles.container}>
+            <Text style={styles.tapHelper}>Tap on an email to open it</Text>
+            <FlatList data={emails} renderItem={({item, index}) => {
+                return createEmailElement(item, index % 2 === 0);
+            }}/>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
+    container: {
+        flex: 1,
+    },
+    tapHelper: {
+        fontSize: 32,
+        textAlign: "center",
+        marginTop: "5%",
+        marginBottom: "5%",
+    },
+    sender: {
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    subject: {
+        marginVertical: 30,
+        height: 1,
+        width: '80%',
+    },
+    sender: {
+        fontSize: 32,
+        marginLeft: "15%",
+        marginRight: "15%",
+        paddingTop: "3%",
+    },
+    subject: {
+        fontSize: 24,
+        marginLeft: "15%",
+        marginRight: "15%",
+        paddingTop: "1%",
+    },
+    date: {
+        marginLeft: "15%",
+        marginRight: "15%",
+        fontSize: 24,
+        paddingTop: "1%",
+        paddingBottom: "3%",
+    }
 });
