@@ -1,5 +1,5 @@
-import {RootTabScreenProps} from "../types";
 
+//this is not a hack
 export default class ModalShareThingy {
     
     private constructor() {}

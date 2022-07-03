@@ -14,7 +14,7 @@ import Colors from '../constants/Colors';
 import EmailAddressScreen from '../screens/EmailAddressScreen';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
-import TabOneScreen from '../screens/TabOneScreen';
+import EmailScreen from '../screens/EmailScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import {RootStackParamList, RootTabParamList, RootTabScreenProps} from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
@@ -73,7 +73,7 @@ function BottomTabNavigator() {
             
             <BottomTab.Screen
                 name="Emails"
-                component={TabOneScreen}
+                component={EmailScreen}
                 /*@ts-ignore*/
                 options={({navigation}: RootTabScreenProps<'Emails'>) => {
                     ModalShareThingy.modal = navigation;

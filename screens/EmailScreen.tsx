@@ -1,6 +1,5 @@
 import {FlatList, Pressable, StyleSheet} from 'react-native';
 
-import EditScreenInfo from '../components/EditScreenInfo';
 import {Text, View} from '../components/Themed';
 import {RootTabScreenProps} from '../types';
 import CoolStorage from "../util/CoolStorage";
@@ -46,7 +45,7 @@ function createEmailElement(email: Email, odd: boolean) {
     );
 }
 
-export default function TabOneScreen({navigation}: RootTabScreenProps<'TabOne'>) {
+export default function EmailScreen({navigation}: RootTabScreenProps<'TabOne'>) {
     
     const [emails, setEmails] = useState(CoolStorage.emails);
     

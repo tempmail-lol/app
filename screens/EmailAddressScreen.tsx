@@ -19,7 +19,7 @@ function Button(props: { onPress: any; title: string }) {
     );
 }
 
-export default function TabOneScreen({navigation}: RootTabScreenProps<'TabOne'>) {
+export default function EmailScreen({navigation}: RootTabScreenProps<'TabOne'>) {
     const [email, setEmail] = useState("");
     const [timer, setTimer] = useState([]);
     
