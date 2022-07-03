@@ -1,7 +1,4 @@
-import {StatusBar} from 'expo-status-bar';
 import {StyleSheet} from 'react-native';
-
-import {Text, View} from '../components/Themed';
 import {Email} from "tempmail.lol";
 import {WebView} from "react-native-webview";
 import {Component} from "react";

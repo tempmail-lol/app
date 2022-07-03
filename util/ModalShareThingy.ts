@@ -1,7 +1,8 @@
 //this is not a hack
 export default class ModalShareThingy {
     
-    private constructor() {}
+    private constructor() {
+    }
     
     public static modal: any;
     

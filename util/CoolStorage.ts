@@ -4,7 +4,8 @@ import {Email} from "tempmail.lol";
 //can't use "Storage", js devs take all the good names and reserve them.
 export default class CoolStorage {
     
-    private constructor() {}
+    private constructor() {
+    }
     
     public static token: string;
     public static address: string;
