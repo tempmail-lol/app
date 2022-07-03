@@ -18,9 +18,27 @@ function Button(props: { onPress: any; title: string }) {
     );
 }
 
+let ws: WebSocket;
+
 export default function EmailScreen() {
     const [email, setEmail] = useState("");
     const [timer, setTimer] = useState([]);
+    const [emailsReceived, setEmailsReceived] = useState(0);
+    const [clientsConnected, setClientsConnected] = useState(0);
+    
+    if(!ws) {
+        // @ts-ignore
+        ws = (new WebSocket("wss://gateway.exploding.email/stats"));
+        
+        ws.onmessage = ((msg) => {
+            const d = JSON.parse(msg.data.toString());
+            if(d.op === 3) {
+                setEmailsReceived(d.statistics.emails_received);
+                setClientsConnected(d.statistics.clients);
+            }
+        });
+    }
+    
     
     console.log(email);
     if(!email) {
@@ -89,7 +107,7 @@ export default function EmailScreen() {
     return (
         <View style={styles.container}>
             <Text style={styles.header}>TempMail</Text>
-            <Text style={styles.stats}>We've processed undefined emails with undefined active inboxes.</Text>
+            <Text style={styles.stats}>We've processed {emailsReceived} emails with {clientsConnected} active inboxes.</Text>
             <Text style={styles.sender}>Your Temporary Email is:</Text>
             <Text style={styles.email}>
                 {email}
