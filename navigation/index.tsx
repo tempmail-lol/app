@@ -8,12 +8,11 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer, DefaultTheme, DarkTheme} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import * as React from 'react';
-import {ColorSchemeName, Pressable} from 'react-native';
+import {ColorSchemeName} from 'react-native';
 
 import Colors from '../constants/Colors';
 import EmailAddressScreen from '../screens/EmailAddressScreen';
 import ModalScreen from '../screens/ModalScreen';
-import NotFoundScreen from '../screens/NotFoundScreen';
 import EmailScreen from '../screens/EmailScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import {RootStackParamList, RootTabParamList, RootTabScreenProps} from '../types';
@@ -41,6 +40,7 @@ function RootNavigator() {
         <Stack.Navigator>
             <Stack.Screen name="Root" component={BottomTabNavigator} options={{headerShown: false}}/>
             <Stack.Group screenOptions={{presentation: 'modal'}}>
+                {/*@ts-ignore*/}
                 <Stack.Screen name="Email View (swipe down to close)" component={ModalScreen}/>
             </Stack.Group>
         </Stack.Navigator>
@@ -69,9 +69,18 @@ function BottomTabNavigator() {
                 // @ts-ignore
                 name="Address"
                 component={EmailAddressScreen}
+                // @ts-ignore
+                options={({navigation}: RootTabScreenProps<'Address'>) => {
+                    ModalShareThingy.modal = navigation;
+                    return ({
+                        sender: 'Emails',
+                        tabBarIcon: ({color}) => <TabBarIcon name="at" color={color}/>,
+                    });
+                }}
             />
             
             <BottomTab.Screen
+                // @ts-ignore
                 name="Emails"
                 component={EmailScreen}
                 /*@ts-ignore*/
@@ -80,20 +89,6 @@ function BottomTabNavigator() {
                     return ({
                         sender: 'Emails',
                         tabBarIcon: ({color}) => <TabBarIcon name="envelope" color={color}/>,
-                        headerRight: () => (
-                            <Pressable
-                                onPress={() => navigation.navigate('Modal')}
-                                style={({pressed}) => ({
-                                    opacity: pressed ? 0.5 : 1,
-                                })}>
-                                <FontAwesome
-                                    name="info-circle"
-                                    size={25}
-                                    color={Colors[colorScheme].text}
-                                    style={{marginRight: 15}}
-                                />
-                            </Pressable>
-                        ),
                     });
                 }}
             />
@@ -101,17 +96,14 @@ function BottomTabNavigator() {
                 name="TabTwo"
                 component={TabTwoScreen}
                 options={{
-                    sender: 'Tab Two',
-                    tabBarIcon: ({color}) => <TabBarIcon name="code" color={color}/>,
+                    title: 'Settings',
+                    tabBarIcon: ({color}) => <TabBarIcon name="gear" color={color}/>,
                 }}
             />
         </BottomTab.Navigator>
     );
 }
 
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
 function TabBarIcon(props: {
     name: React.ComponentProps<typeof FontAwesome>['name'];
     color: string;

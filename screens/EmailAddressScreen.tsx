@@ -36,10 +36,8 @@ export default function EmailScreen({navigation}: RootTabScreenProps<'TabOne'>) 
             async function task() {
                 try {
                     const emails = await checkInboxAsync(CoolStorage.token);
-                    console.log(emails);
                     //add the emails to the storage
                     CoolStorage.emails = CoolStorage.emails.concat(emails);
-                    console.log("emails fetched");
                 } catch (e) { //if the token is invalid
                     await reloadAsync();
                 }
@@ -48,7 +46,6 @@ export default function EmailScreen({navigation}: RootTabScreenProps<'TabOne'>) 
             if(!!timer[0]) return;
             
             const intr = setInterval(() => {
-                console.log("interval");
                 task();
             }, 3000);
             

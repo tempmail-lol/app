@@ -74,15 +74,6 @@ const styles = StyleSheet.create({
         marginBottom: "5%",
     },
     sender: {
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-    subject: {
-        marginVertical: 30,
-        height: 1,
-        width: '80%',
-    },
-    sender: {
         fontSize: 32,
         marginLeft: "15%",
         marginRight: "15%",
