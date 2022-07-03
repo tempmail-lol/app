@@ -93,7 +93,7 @@ export default function TabOneScreen({navigation}: RootTabScreenProps<'TabOne'>)
     return (
         <View style={styles.container}>
             <Text style={styles.header}>TempMail</Text>
-            <Text style={styles.stats}>We've processed TODO emails with TODO active inboxes.</Text>
+            <Text style={styles.stats}>We've processed undefined emails with undefined active inboxes.</Text>
             <Text style={styles.sender}>Your Temporary Email is:</Text>
             <Text style={styles.email}>
                 {email}
@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
     stats: {
         fontSize: 24,
         marginBottom: 24,
+        textAlign: "center",
     },
     email: {
         width: 500,

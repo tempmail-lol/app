@@ -69,25 +69,6 @@ function BottomTabNavigator() {
                 // @ts-ignore
                 name="Address"
                 component={EmailAddressScreen}
-                // @ts-ignore
-                options={({navigation}: RootTabScreenProps<'Address'>) => ({
-                        sender: 'Address',
-                        tabBarIcon: ({color}) => <TabBarIcon name="at" color={color}/>,
-                        headerRight: () => (
-                            <Pressable
-                                onPress={() => navigation.navigate('Modal')}
-                                style={({pressed}) => ({
-                                    opacity: pressed ? 0.5 : 1,
-                                })}>
-                                <FontAwesome
-                                    name="info-circle"
-                                    size={25}
-                                    color={Colors[colorScheme].text}
-                                    style={{marginRight: 15}}
-                                />
-                            </Pressable>
-                        ),
-                    })}
             />
             
             <BottomTab.Screen
