@@ -12,6 +12,7 @@ web-build/
 
 .idea
 *.iml
+*.apk
 
 # macOS
 .DS_Store
