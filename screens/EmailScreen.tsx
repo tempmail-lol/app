@@ -26,9 +26,9 @@ const alt = StyleSheet.create({
 
 function formatDate(date: number): string {
     //format the date in the format:
-    //Mon, Jan 1, 2020
+    //Wed, Jan 1, 2020
     const d = new Date(date);
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
     return `${d.getDate()} ${months[d.getMonth()]}, ${d.getFullYear()}`;
 }
 
@@ -45,7 +45,7 @@ function createEmailElement(email: Email, odd: boolean) {
     );
 }
 
-export default function EmailScreen({navigation}: RootTabScreenProps<'TabOne'>) {
+export default function EmailScreen() {
     
     const [emails, setEmails] = useState(CoolStorage.emails);
     

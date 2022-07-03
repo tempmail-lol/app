@@ -5,7 +5,6 @@ import * as Clipboard from "expo-clipboard";
 import {reloadAsync} from "expo-updates";
 
 import {Text, View} from '../components/Themed';
-import {RootTabScreenProps} from '../types';
 import {useState} from "react";
 import CoolStorage from "../util/CoolStorage";
 import {checkInboxAsync} from "tempmail.lol";
@@ -19,7 +18,7 @@ function Button(props: { onPress: any; title: string }) {
     );
 }
 
-export default function EmailScreen({navigation}: RootTabScreenProps<'TabOne'>) {
+export default function EmailScreen() {
     const [email, setEmail] = useState("");
     const [timer, setTimer] = useState([]);
     
