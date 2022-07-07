@@ -1,8 +1,8 @@
 {
     "expo": {
         "name": "AnonyMail",
-        "slug": "tempmail-lol-app",
-        "version": "1.0.1",
+        "slug": "anonymail",
+        "version": "1.1.0",
         "orientation": "portrait",
         "icon": "./assets/images/icon.png",
         "scheme": "myapp",
@@ -20,14 +20,27 @@
         ],
         "ios": {
             "supportsTablet": true,
-            "bundleIdentifier": "net.epolite.tempmail"
+            "bundleIdentifier": "net.epolite.tempmail",
+            "icon": "./assets/images/icon.png",
+            "splash": {
+                "backgroundColor": "#000000",
+                "image": "./assets/images/splash.png",
+                "resizeMode": "contain"
+            }
         },
         "android": {
             "adaptiveIcon": {
                 "foregroundImage": "./assets/images/adaptive-icon.png",
                 "backgroundColor": "#ffffff"
             },
-            "package": "net.epolite.tempmail"
+            "package": "net.epolite.tempmail",
+            "allowBackup": false,
+            "icon": "./assets/images/icon.png",
+            "splash": {
+                "image": "./assets/images/splash.png",
+                "resizeMode": "native",
+                "backgroundColor": "#000000"
+            }
         },
         "web": {
             "favicon": "./assets/images/favicon.png"
