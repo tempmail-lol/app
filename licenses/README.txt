@@ -10,4 +10,5 @@ The licenses (under the MIT license) can be found here:
 - https://github.com/th3rdwave/react-native-safe-area-context/blob/main/LICENSE
 - https://github.com/software-mansion/react-native-screens/blob/main/LICENSE
 - https://github.com/react-native-webview/react-native-webview/blob/master/LICENSE
-
+- https://github.com/react-native-async-storage/async-storage/blob/master/LICENSE
+- 

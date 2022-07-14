@@ -3,10 +3,14 @@ import {StyleSheet} from 'react-native';
 import {Text, View} from '../components/Themed';
 
 export default function TabTwoScreen() {
+    
+    //ScrapeProof:tm:
+    const email = "alex" + "ander" + "@" + "epol" + "ite" + "." + "ne" + "t";
+    
     return (
         <View style={styles.container}>
-            <Text>TempMail.lol Mobile App Beta</Text>
-            <Text>Thank you for testing! Please put feedback in #mobile-feedback in the Discord server.</Text>
+            <Text>AnonyMail Mobile App Beta</Text>
+            <Text>Thank you for testing!  Please email {email} for feedback.</Text>
         </View>
     );
 }
@@ -14,8 +18,6 @@ export default function TabTwoScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
     },
     sender: {
         fontSize: 20,

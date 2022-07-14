@@ -1,4 +1,4 @@
-import {Alert, Pressable, StyleSheet} from 'react-native';
+import {Alert, Animated, Pressable, StyleSheet} from 'react-native';
 
 import * as Clipboard from "expo-clipboard";
 
@@ -7,7 +7,14 @@ import {reloadAsync} from "expo-updates";
 import {Text, View} from '../components/Themed';
 import {useState} from "react";
 import CoolStorage from "../util/CoolStorage";
-import {checkInboxAsync} from "tempmail.lol";
+import {checkInboxAsync, Email} from "tempmail.lol";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+async function getEmails(token: string): Promise<Email[]> {
+    //TODO add TOR or Lokinet functionality once it becomes easy to do.
+    //if you have a way of connecting to TOR using pure JS let me know.
+    return checkInboxAsync(token);
+}
 
 function Button(props: { onPress: any; title: string }) {
     const {onPress, title = 'Save'} = props;
@@ -23,8 +30,8 @@ let ws: WebSocket;
 export default function EmailScreen() {
     const [email, setEmail] = useState("");
     const [timer, setTimer] = useState([]);
-    const [emailsReceived, setEmailsReceived] = useState(0);
-    const [clientsConnected, setClientsConnected] = useState(0);
+    const [emailsReceived, setEmailsReceived] = useState("[loading]");
+    const [clientsConnected, setClientsConnected] = useState("[loading]");
     
     if(!ws) {
         // @ts-ignore
@@ -33,28 +40,73 @@ export default function EmailScreen() {
         ws.onmessage = ((msg) => {
             const d = JSON.parse(msg.data.toString());
             if(d.op === 3) {
-                setEmailsReceived(d.statistics.emails_received);
-                setClientsConnected(d.statistics.clients);
+                setEmailsReceived(`${d.statistics.emails_received}`);
+                setClientsConnected(`${d.statistics.clients}`);
             }
         });
     }
     
-    
     console.log(email);
+    
     if(!email) {
-        fetch("https://api.tempmail.lol/generate").then(async (res) => {
-            const json = await res.json();
-            CoolStorage.address = json.address;
-            CoolStorage.token = json.token;
-            setEmail(json.address);
-            console.log(json);
-            console.log(timer);
+        
+        (async () => {
+            let token = await AsyncStorage.getItem("@email_token");
+            
+            //check for existing email address
+            if(token) {
+                try {
+                    const data = await checkInboxAsync(token);
+                    if(data.length > 0) {
+                        //stored_emails is an array of emails
+                        const stored_emails = await AsyncStorage.getItem("@stored_emails");
+                        let se_array: Email[] = [];
+                        
+                        if(stored_emails) {
+                            se_array = JSON.parse(stored_emails);
+                        }
+                        
+                        CoolStorage.emails = CoolStorage.emails.concat(data);
+                        CoolStorage.emails = CoolStorage.emails.concat(se_array);
+                    }
+                    
+                    const address = await AsyncStorage.getItem("@email_address");
+                    
+                    if(!address) throw new Error();
+                    
+                    CoolStorage.address = address;
+                    CoolStorage.token = token;
+                    setEmail(address);
+                    console.log(`resumed ${address}`);
+                    
+                } catch(e) {
+                    //invalid token
+                    await AsyncStorage.removeItem("@email_token");
+                    await AsyncStorage.removeItem("@email_address");
+                    token = null;
+                }
+            }
+            
+            if(!token) {
+                fetch("https://api.tempmail.lol/generate").then(async (res) => {
+                    const json = await res.json();
+                    CoolStorage.address = json.address;
+                    CoolStorage.token = json.token;
+                    setEmail(json.address);
+                    console.log(json);
+                    console.log(timer);
+                    await AsyncStorage.setItem("@email_address", json.address);
+                    await AsyncStorage.setItem("@email_token", json.token);
+                });
+            }
             
             async function task() {
                 try {
-                    const emails = await checkInboxAsync(CoolStorage.token);
+                    const emails = await getEmails(CoolStorage.token);
                     //add the emails to the storage
                     CoolStorage.emails = CoolStorage.emails.concat(emails);
+                    //add the emails to the storage
+                    await AsyncStorage.setItem("@stored_emails", JSON.stringify(CoolStorage.emails));
                 } catch(e) { //if the token is invalid
                     await reloadAsync();
                 }
@@ -68,7 +120,9 @@ export default function EmailScreen() {
             
             // @ts-ignore
             setTimer([intr]);
-        });
+            
+        })();
+        
     }
     
     async function onCopy() {
@@ -95,6 +149,9 @@ export default function EmailScreen() {
                     CoolStorage.token = "";
                     CoolStorage.address = "";
                     CoolStorage.emails = [];
+                    await AsyncStorage.removeItem("@email_token");
+                    await AsyncStorage.removeItem("@email_address");
+                    await AsyncStorage.removeItem("@stored_emails");
                 }),
             },
             {
@@ -106,9 +163,10 @@ export default function EmailScreen() {
     
     return (
         <View style={styles.container}>
-            <Text style={styles.header}>TempMail</Text>
+            <Text style={styles.header}>AnonyMail</Text>
+            <Text>Beta build 22w27c</Text>
             <Text style={styles.stats}>We've processed {emailsReceived} emails with {clientsConnected} active inboxes.</Text>
-            <Text style={styles.sender}>Your Temporary Email is:</Text>
+            <Text style={styles.sender}>Your Anonymous Temporary Email is:</Text>
             <Text style={styles.email}>
                 {email}
             </Text>
@@ -141,7 +199,7 @@ const styles = StyleSheet.create({
         marginTop: 64,
     },
     stats: {
-        fontSize: 24,
+        fontSize: 20,
         marginBottom: 24,
         textAlign: "center",
     },
