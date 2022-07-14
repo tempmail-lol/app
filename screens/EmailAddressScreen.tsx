@@ -164,7 +164,7 @@ export default function EmailScreen() {
     return (
         <View style={styles.container}>
             <Text style={styles.header}>AnonyMail</Text>
-            <Text>Beta build 22w27c</Text>
+            <Text>Beta build 22w28a</Text>
             <Text style={styles.stats}>We've processed {emailsReceived} emails with {clientsConnected} active inboxes.</Text>
             <Text style={styles.sender}>Your Anonymous Temporary Email is:</Text>
             <Text style={styles.email}>
