@@ -149,6 +149,9 @@ export default function EmailScreen() {
                     CoolStorage.token = "";
                     CoolStorage.address = "";
                     CoolStorage.emails = [];
+                    await AsyncStorage.removeItem("@email_token");
+                    await AsyncStorage.removeItem("@email_address");
+                    await AsyncStorage.removeItem("@stored_emails");
                 }),
             },
             {
@@ -196,7 +199,7 @@ const styles = StyleSheet.create({
         marginTop: 64,
     },
     stats: {
-        fontSize: 24,
+        fontSize: 20,
         marginBottom: 24,
         textAlign: "center",
     },
