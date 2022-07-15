@@ -1,7 +1,12 @@
-import {Button, StyleSheet} from 'react-native';
+import {Button, Linking, StyleSheet} from 'react-native';
 
 import {Text, View} from '../components/Themed';
 import {StatusBar} from "expo-status-bar";
+
+function openSource() {
+    const url = "https://github.com/tempmail-lol/app";
+    Linking.openURL(url);
+}
 
 export default function TabTwoScreen() {
     
@@ -11,7 +16,7 @@ export default function TabTwoScreen() {
     return (
         <View style={styles.container}>
             <StatusBar style="light" />
-            <Button title={"Source Code"} />
+            <Button title={"Source Code"} onPress={openSource}/>
             <Text>AnonyMail Mobile App Beta</Text>
             <Text>Thank you for testing!  Please email {email} for feedback.</Text>
         </View>

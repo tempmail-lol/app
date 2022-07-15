@@ -1,7 +1,6 @@
 import {Dimensions, FlatList, Pressable, StyleSheet} from 'react-native';
 
 import {Text, View} from '../components/Themed';
-import {RootTabScreenProps} from '../types';
 import CoolStorage from "../util/CoolStorage";
 import {useState} from "react";
 import {Email} from "tempmail.lol";
