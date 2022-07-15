@@ -1,4 +1,4 @@
-import {Button, Pressable, StyleSheet, TouchableHighlight, View} from 'react-native';
+import {Button, Linking, Platform, Pressable, StyleSheet, TouchableHighlight, View} from 'react-native';
 import {Email} from "tempmail.lol";
 import {WebView} from "react-native-webview";
 import {Component} from "react";
@@ -27,12 +27,21 @@ export default class ModalScreen extends Component<any> {
         return (
             <>
                 <StatusBar style="light" />
-                <Button title={""} color="white" />
-                <Button title={"Close"} color="white"
+                <Button title={""} color="black" onPress={() => {
+                    this.props.navigation.goBack();
+                }}/>
+                <Button title={"Close"}
+                        //because android is dumb sometimes the button color needs to
+                        //be black.  ios needs it to be white.
+                        //ios changes just the button color, android changes
+                        //both button and bg to be the same (???)
+                        //i feel like there's a "more correct" way to do this but whatever.
+                        color={Platform.OS === "ios" ? "white" : "black"}
                         onPress={() => {
                             this.props.navigation.goBack();
                         }}/>
                 <View>
+                    {/*"padding"*/}
                     <Text>{}</Text>
                 </View>
                 <WebView

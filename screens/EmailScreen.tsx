@@ -1,4 +1,4 @@
-import {FlatList, Pressable, StyleSheet} from 'react-native';
+import {Dimensions, FlatList, Pressable, StyleSheet} from 'react-native';
 
 import {Text, View} from '../components/Themed';
 import {RootTabScreenProps} from '../types';
@@ -70,19 +70,20 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     tapHelper: {
-        fontSize: 32,
+        //dynamically change the font size based on the screen size (was 32)
+        fontSize: Math.min(Math.max(Math.floor(Dimensions.get('window').width / 20), 12), 24),
         textAlign: "center",
         marginTop: "5%",
         marginBottom: "5%",
     },
     sender: {
-        fontSize: 32,
+        fontSize: Math.min(Math.max(Math.floor(Dimensions.get('window').width / 15), 12), 24),
         marginLeft: "15%",
         marginRight: "15%",
         paddingTop: "3%",
     },
     subject: {
-        fontSize: 24,
+        fontSize: 16,
         marginLeft: "15%",
         marginRight: "15%",
         paddingTop: "1%",
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
     date: {
         marginLeft: "15%",
         marginRight: "15%",
-        fontSize: 24,
+        fontSize: 16,
         paddingTop: "1%",
         paddingBottom: "3%",
     }
