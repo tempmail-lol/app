@@ -6,11 +6,12 @@ import CoolStorage from "../util/CoolStorage";
 import {useState} from "react";
 import {Email} from "tempmail.lol";
 import ModalShareThingy from "../util/ModalShareThingy";
+import {StatusBar} from "expo-status-bar";
 
 function openEmail(email: Email): any {
     console.log(`pressed`)
     //open a modal with the email html
-    ModalShareThingy.modal.navigate("Email View (swipe down to close)", email);
+    ModalShareThingy.modal.navigate("Email View", email);
 }
 
 const blank = StyleSheet.create({
@@ -55,6 +56,7 @@ export default function EmailScreen() {
     
     return (
         <View style={styles.container}>
+            <StatusBar style="light" />
             <Text style={styles.tapHelper}>Tap on an email to open it</Text>
             <FlatList data={emails} renderItem={({item, index}) => {
                 return createEmailElement(item, index % 2 === 0);

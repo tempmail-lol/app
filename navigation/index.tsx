@@ -39,9 +39,14 @@ function RootNavigator() {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Root" component={BottomTabNavigator} options={{headerShown: false}}/>
-            <Stack.Group screenOptions={{presentation: 'modal'}}>
+            <Stack.Group screenOptions={{presentation: 'formSheet'}} >
+                {/*X button*/}
                 {/*@ts-ignore*/}
-                <Stack.Screen name="Email View (swipe down to close)" component={ModalScreen}/>
+                <Stack.Screen name="Email View" component={ModalScreen} options={
+                    {
+                        headerShown: false,
+                    }
+                }/>
             </Stack.Group>
         </Stack.Navigator>
     );

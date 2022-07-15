@@ -1,4 +1,4 @@
-import {Alert, Animated, Pressable, StyleSheet} from 'react-native';
+import {Alert, Animated, Dimensions, Pressable, StyleSheet} from 'react-native';
 
 import * as Clipboard from "expo-clipboard";
 
@@ -9,6 +9,7 @@ import {useState} from "react";
 import CoolStorage from "../util/CoolStorage";
 import {checkInboxAsync, Email} from "tempmail.lol";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {StatusBar} from "expo-status-bar";
 
 async function getEmails(token: string): Promise<Email[]> {
     //TODO add TOR or Lokinet functionality once it becomes easy to do.
@@ -163,11 +164,14 @@ export default function EmailScreen() {
     
     return (
         <View style={styles.container}>
+            <StatusBar style="light" />
             <Text style={styles.header}>AnonyMail</Text>
             <Text>Beta build 22w28a</Text>
             <Text style={styles.stats}>We've processed {emailsReceived} emails with {clientsConnected} active inboxes.</Text>
             <Text style={styles.sender}>Your Anonymous Temporary Email is:</Text>
-            <Text style={styles.email}>
+            <Text style={styles.email}
+                  adjustsFontSizeToFit={true}
+                  numberOfLines={1}>
                 {email}
             </Text>
             <View style={styles.buttonContainer}>
@@ -188,29 +192,30 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         // fontFamily: "Ubuntu",
     },
-    sender: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 16,
-    },
-    header: {
-        fontSize: 48,
-        marginBottom: 24,
-        marginTop: 64,
-    },
-    stats: {
-        fontSize: 20,
-        marginBottom: 24,
-        textAlign: "center",
-    },
     email: {
+        //dynamically change the font size to fit the width of the screen
+        fontSize: Math.min(Math.max(Math.floor(Dimensions.get('window').width / 20), 12), 24),
         width: 500,
         height: 50,
         // fontFamily: "Roboto Mono",
         textAlign: "center",
-        fontSize: 22,
         borderRadius: 10,
-        color: "#fff"
+        color: "#fff",
+    },
+    sender: {
+        fontSize: Math.min(Math.max(Math.floor(Dimensions.get('window').width / 20), 12), 24),
+        fontWeight: 'bold',
+        marginBottom: 16,
+    },
+    header: {
+        fontSize: 36,
+        marginBottom: 24,
+        marginTop: 64,
+    },
+    stats: {
+        fontSize: Math.min(Math.max(Math.floor(Dimensions.get('window').width / 20), 12), 24),
+        marginBottom: 24,
+        textAlign: "center",
     },
     buttonContainer: {
         alignItems: "center",
@@ -223,7 +228,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         backgroundColor: "#0d1117",
         textAlign: "center",
-        fontSize: "x-large",
+        fontSize: Math.min(Math.max(Math.floor(Dimensions.get('window').width / 20), 12), 24),
         color: "#fff",
         borderRadius: 10,
         flex: 0,

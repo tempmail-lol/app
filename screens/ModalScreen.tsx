@@ -1,8 +1,11 @@
-import {StyleSheet} from 'react-native';
+import {Button, Pressable, StyleSheet, TouchableHighlight, View} from 'react-native';
 import {Email} from "tempmail.lol";
 import {WebView} from "react-native-webview";
 import {Component} from "react";
 import {parse} from "node-html-parser";
+import {StatusBar} from "expo-status-bar";
+import {Text} from "../components/Themed";
+import {FontAwesome} from "@expo/vector-icons";
 
 export default class ModalScreen extends Component<any> {
     render() {
@@ -22,14 +25,25 @@ export default class ModalScreen extends Component<any> {
         }
         
         return (
-            <WebView
-                originWhitelist={['*']}
-                source={
-                    {html: html.toString()}
-                }
-                javaScriptEnabled={false}
-                style={styles.frame}
-            />
+            <>
+                <StatusBar style="light" />
+                <Button title={""} color="white" />
+                <Button title={"Close"} color="white"
+                        onPress={() => {
+                            this.props.navigation.goBack();
+                        }}/>
+                <View>
+                    <Text>{}</Text>
+                </View>
+                <WebView
+                    originWhitelist={['*']}
+                    source={
+                        {html: html.toString()}
+                    }
+                    javaScriptEnabled={false}
+                    style={styles.frame}
+                />
+            </>
         );
     }
 }
@@ -58,5 +72,10 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "column",
         backgroundColor: "#fff",
+    },
+    backButton: {
+        position: "absolute",
+        top: "5%",
+        left: "5%",
     }
 });

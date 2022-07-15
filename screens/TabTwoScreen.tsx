@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 
 import {Text, View} from '../components/Themed';
+import {StatusBar} from "expo-status-bar";
 
 export default function TabTwoScreen() {
     
@@ -9,6 +10,7 @@ export default function TabTwoScreen() {
     
     return (
         <View style={styles.container}>
+            <StatusBar style="light" />
             <Text>AnonyMail Mobile App Beta</Text>
             <Text>Thank you for testing!  Please email {email} for feedback.</Text>
         </View>
@@ -18,6 +20,8 @@ export default function TabTwoScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     sender: {
         fontSize: 20,
