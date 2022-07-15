@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Button, StyleSheet} from 'react-native';
 
 import {Text, View} from '../components/Themed';
 import {StatusBar} from "expo-status-bar";
@@ -11,6 +11,7 @@ export default function TabTwoScreen() {
     return (
         <View style={styles.container}>
             <StatusBar style="light" />
+            <Button title={"Source Code"} />
             <Text>AnonyMail Mobile App Beta</Text>
             <Text>Thank you for testing!  Please email {email} for feedback.</Text>
         </View>

@@ -79,6 +79,8 @@ function BottomTabNavigator() {
                     ModalShareThingy.modal = navigation;
                     return ({
                         sender: 'Emails',
+                        tabBarAllowFontScaling: false,
+                        headerTitleAllowFontScaling: false,
                         tabBarIcon: ({color}) => <TabBarIcon name="at" color={color}/>,
                     });
                 }}
@@ -93,6 +95,8 @@ function BottomTabNavigator() {
                     ModalShareThingy.modal = navigation;
                     return ({
                         sender: 'Emails',
+                        tabBarAllowFontScaling: false,
+                        headerTitleAllowFontScaling: false,
                         tabBarIcon: ({color}) => <TabBarIcon name="envelope" color={color}/>,
                     });
                 }}
@@ -102,6 +106,8 @@ function BottomTabNavigator() {
                 component={TabTwoScreen}
                 options={{
                     title: 'Settings',
+                    tabBarAllowFontScaling: false,
+                    headerTitleAllowFontScaling: false,
                     tabBarIcon: ({color}) => <TabBarIcon name="gear" color={color}/>,
                 }}
             />
