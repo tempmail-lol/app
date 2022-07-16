@@ -6,13 +6,11 @@ Mobile app for tempmail
 
 Install expo-cli and eas, then run `eas build --local` and select your platform.
 
-Better build instructions coming soon:tm:.
-
 ## Download
 
 ### iOS
 
-Testflight builds coming in the next few days once Apple approves my account.
+iOS users can download the TestFlight here: [testflight.apple.com/join/g3qAScyT](https://testflight.apple.com/join/g3qAScyT)
 
 ### Android
 
