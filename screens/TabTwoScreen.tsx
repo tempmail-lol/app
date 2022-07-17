@@ -6,9 +6,9 @@ import ModalShareThingy from "../util/ModalShareThingy";
 import {Email} from "tempmail.lol";
 import licenses from "../util/licenses";
 
-function openSource() {
+async function openSource() {
     const url = "https://github.com/tempmail-lol/app";
-    Linking.openURL(url);
+    await Linking.openURL(url);
 }
 
 function openOSL() {

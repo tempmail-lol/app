@@ -73,7 +73,10 @@ export default function EmailScreen() {
                     
                     const address = await AsyncStorage.getItem("@email_address");
                     
-                    if (!address) throw new Error();
+                    if (!address) {
+                        // noinspection ExceptionCaughtLocallyJS
+                        throw new Error();
+                    }
                     
                     CoolStorage.address = address;
                     CoolStorage.token = token;

@@ -1,11 +1,10 @@
-import {Button, Linking, Platform, Pressable, StyleSheet, TouchableHighlight, View} from 'react-native';
+import {Button, Platform, StyleSheet, View} from 'react-native';
 import {Email} from "tempmail.lol";
 import {WebView} from "react-native-webview";
 import {Component} from "react";
 import {parse} from "node-html-parser";
 import {StatusBar} from "expo-status-bar";
 import {Text} from "../components/Themed";
-import {FontAwesome} from "@expo/vector-icons";
 
 export default class ModalScreen extends Component<any> {
     render() {
