@@ -26,6 +26,14 @@ function Button(props: { onPress: any; title: string }) {
     );
 }
 
+async function getStats(): Promise<{clients_connected: string, emails_received: string}> {
+    const data = await (await fetch("https://api.tempmail.lol/stats")).json();
+    return {
+        clients_connected: `${data.clients_connected}`,
+        emails_received: `${data.emails_received}`,
+    };
+}
+
 export default function EmailScreen() {
     const [email, setEmail] = useState("");
     const [timer, setTimer] = useState([]);
@@ -35,7 +43,7 @@ export default function EmailScreen() {
     console.log(email);
     
     if(emailsReceived === "[loading]") {
-        fetch("https://api.tempmail.lol/stats").then(r => r.json()).then((r) => {
+        getStats().then((r) => {
             setClientsConnected(r.clients_connected);
             setEmailsReceived(r.emails_received);
         });
@@ -98,7 +106,7 @@ export default function EmailScreen() {
                     await AsyncStorage.setItem("@stored_emails", JSON.stringify(CoolStorage.emails));
                     
                     //fetch the stats
-                    fetch("https://api.tempmail.lol/stats").then(r => r.json()).then((r) => {
+                    getStats().then((r) => {
                         setClientsConnected(r.clients_connected);
                         setEmailsReceived(r.emails_received);
                     });
