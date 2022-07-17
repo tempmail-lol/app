@@ -26,28 +26,20 @@ function Button(props: { onPress: any; title: string }) {
     );
 }
 
-let ws: WebSocket;
-
 export default function EmailScreen() {
     const [email, setEmail] = useState("");
     const [timer, setTimer] = useState([]);
     const [emailsReceived, setEmailsReceived] = useState("[loading]");
     const [clientsConnected, setClientsConnected] = useState("[loading]");
     
-    if (!ws) {
-        // @ts-ignore
-        ws = (new WebSocket("wss://gateway.exploding.email/stats"));
-        
-        ws.onmessage = ((msg) => {
-            const d = JSON.parse(msg.data.toString());
-            if (d.op === 3) {
-                setEmailsReceived(`${d.statistics.emails_received}`);
-                setClientsConnected(`${d.statistics.clients}`);
-            }
+    console.log(email);
+    
+    if(emailsReceived === "[loading]") {
+        fetch("https://api.tempmail.lol/stats").then(r => r.json()).then((r) => {
+            setClientsConnected(r.clients_connected);
+            setEmailsReceived(r.emails_received);
         });
     }
-    
-    console.log(email);
     
     if (!email) {
         
@@ -104,6 +96,12 @@ export default function EmailScreen() {
                     CoolStorage.emails = CoolStorage.emails.concat(emails);
                     //add the emails to the storage
                     await AsyncStorage.setItem("@stored_emails", JSON.stringify(CoolStorage.emails));
+                    
+                    //fetch the stats
+                    fetch("https://api.tempmail.lol/stats").then(r => r.json()).then((r) => {
+                        setClientsConnected(r.clients_connected);
+                        setEmailsReceived(r.emails_received);
+                    });
                 } catch (e) { //if the token is invalid
                     await reloadAsync();
                 }
