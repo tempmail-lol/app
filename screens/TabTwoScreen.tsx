@@ -32,7 +32,7 @@ export default function TabTwoScreen() {
             <StatusBar style="light" />
             <Button title={"Open Source Licenses"} onPress={openOSL}/>
             <Button title={"Source Code"} onPress={openSource}/>
-            <Text>AnonyMail Mobile App Beta</Text>
+            <Text>AnonyMail Beta</Text>
             <Text>Thank you for testing!  Please email {email} for feedback.</Text>
         </View>
     );
