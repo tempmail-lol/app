@@ -34,7 +34,7 @@ export default function TabTwoScreen() {
             <StatusBar style="light" />
             <Button title={"Open Source Licenses"} onPress={openOSL}/>
             <Button title={"Source Code"} onPress={openSource}/>
-            <Button title={"Privacy Policy"} onPress={() => {openPrivacyPolicy}}/>
+            <Button title={"Privacy Policy"} onPress={openPrivacyPolicy}/>
             
             <Text style={styles.version}>You are using AnonyMail version {version}</Text>
             
