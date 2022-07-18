@@ -135,7 +135,6 @@ export default function EmailScreen() {
         <View style={styles.container}>
             <StatusBar style="light"/>
             <Text style={styles.header}>AnonyMail</Text>
-            <Text>Beta build 22w29a</Text>
             <Text style={styles.stats}>We've processed {emailsReceived} emails with {clientsConnected} active
                 inboxes.</Text>
             <Text style={styles.sender}>Your Anonymous Temporary Email is:</Text>
@@ -186,6 +185,10 @@ const styles = StyleSheet.create({
         fontSize: Math.min(Math.max(Math.floor(Dimensions.get('window').width / 20), 12), 24),
         marginBottom: 24,
         textAlign: "center",
+        paddingLeft: 2,
+        paddingRight: 2,
+        marginLeft: 2,
+        marginRight: 2,
     },
     buttonContainer: {
         alignItems: "center",

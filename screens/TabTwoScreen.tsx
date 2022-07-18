@@ -22,18 +22,22 @@ function openOSL() {
     ));
 }
 
+async function openPrivacyPolicy() {
+    await Linking.openURL("https://tempmail.lol/privacy-policy.html");
+}
+
+const version = require("../app.json").expo.version;
+
 export default function TabTwoScreen() {
-    
-    //ScrapeProof:tm:
-    const email = "alex" + "ander" + "@" + "epol" + "ite" + "." + "ne" + "t";
-    
     return (
         <View style={styles.container}>
             <StatusBar style="light" />
             <Button title={"Open Source Licenses"} onPress={openOSL}/>
             <Button title={"Source Code"} onPress={openSource}/>
-            <Text>AnonyMail Beta</Text>
-            <Text>Thank you for testing!  Please email {email} for feedback.</Text>
+            <Button title={"Privacy Policy"} onPress={() => {openPrivacyPolicy}}/>
+            
+            <Text style={styles.version}>You are using AnonyMail version {version}</Text>
+            
         </View>
     );
 }
@@ -53,4 +57,8 @@ const styles = StyleSheet.create({
         height: 1,
         width: '80%',
     },
+    version: {
+        marginTop: 10,
+        fontSize: 22,
+    }
 });
