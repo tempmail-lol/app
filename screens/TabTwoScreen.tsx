@@ -36,15 +36,27 @@ export default function TabTwoScreen() {
     
     const [scriptingEnabled, setScriptingEnabled] = useState(false);
     const toggleScripting = () => setScriptingEnabled(((p) => {
-        Alert.prompt("", "", [
-            {
-                text: "",
-                onPress: () => {},
-                style: "default",
-            }
-        ]);
+        if(p) {
+            Alert.prompt("Enabling JavaScript", "Enabling JavaScript can cause emails you receive to de-anonymize you.\nOnly enable if you know what you are doing.", [
+                {
+                    text: "Cancel",
+                    onPress: () => {
+                    },
+                    style: "default",
+                },
+                {
+                    text: "I know what I'm doing",
+                    onPress: () => {
+                        setScriptingEnabled(true);
+                    },
+                    style: "destructive",
+                }
+            ]);
+        } else {
+            return false;
+        }
         
-        return !p;
+        return false;
     }));
     
     return (
@@ -58,7 +70,7 @@ export default function TabTwoScreen() {
                 <Switch
                     style={styles.switch}
                     value={authEnabled}
-                    onValueChange={toggleAuth}
+                    onValueChange={toggleScripting}
                 />
             </View>
             <Text style={styles.version}>You are using AnonyMail version {version}</Text>
