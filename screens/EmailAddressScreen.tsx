@@ -128,7 +128,6 @@ export default function EmailScreen() {
             setTimer([intr]);
             
         })();
-        
     }
     
     return (
