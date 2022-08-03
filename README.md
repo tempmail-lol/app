@@ -14,7 +14,7 @@ You can download the app from here: [apps.apple.com/us/app/anonymail/id163285714
 
 iOS users can also download the TestFlight here: [testflight.apple.com/join/g3qAScyT](https://testflight.apple.com/join/g3qAScyT)
 
-### Android
+### Android™
 
 Find the APK files in the [releases](https://github.com/tempmail-lol/app/releases) page under Assets.
 
