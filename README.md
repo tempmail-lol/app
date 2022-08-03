@@ -25,3 +25,4 @@ Potential F-Droid repository coming soon<sup>ish</sup>
 For legal reasons I must disclose the following:
 * iOS and TestFlight are trademarks of Apple.
 * Android is a trademark of Google LLC.
+
