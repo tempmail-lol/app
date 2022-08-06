@@ -18,6 +18,7 @@ import TabTwoScreen from '../screens/TabTwoScreen';
 import {RootStackParamList, RootTabParamList, RootTabScreenProps} from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import ModalShareThingy from "../util/ModalShareThingy";
+import FirstLoadModal from "../screens/FirstLoadModal";
 
 export default function Navigation({colorScheme}: { colorScheme: ColorSchemeName }) {
     return (
@@ -45,6 +46,13 @@ function RootNavigator() {
                 <Stack.Screen name="Email View" component={ModalScreen} options={
                     {
                         headerShown: false,
+                    }
+                }/>
+                {/*@ts-ignore*/}
+                <Stack.Screen name="First Load" component={FirstLoadModal} options={
+                    {
+                        headerShown: false,
+                        gestureEnabled: false,
                     }
                 }/>
             </Stack.Group>

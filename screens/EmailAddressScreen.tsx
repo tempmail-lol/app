@@ -10,6 +10,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {StatusBar} from "expo-status-bar";
 import onRegenerate from "../util/onRegenerate";
 import onCopy from "../util/onCopy";
+import ModalShareThingy from "../util/ModalShareThingy";
 
 async function getEmails(token: string): Promise<Email[]> {
     //TODO add TOR or Lokinet functionality once it becomes easy to do.
@@ -90,8 +91,10 @@ export default function EmailScreen() {
                 }
             }
             
-            if (!token) {
-                createInboxAsync().then(async (inbox) => {
+            if(!token) {
+                const isRushMode = (await AsyncStorage.getItem("@rush_mode")) === "true";
+                console.log(`rush mode: ${isRushMode}`);
+                createInboxAsync(isRushMode).then(async (inbox) => {
                     CoolStorage.address = inbox.address;
                     CoolStorage.token = inbox.token;
                     setEmail(inbox.address);
@@ -129,6 +132,12 @@ export default function EmailScreen() {
             
         })();
     }
+    
+    AsyncStorage.getItem("@lecture_1").then(r => {
+        if(!r) {
+            ModalShareThingy.modal.navigate("First Load");
+        }
+    })
     
     return (
         <View style={styles.container}>

@@ -43,7 +43,7 @@ export default function TabTwoScreen() {
         }
     });
     
-    AsyncStorage.getItem("@alternative_domains").then(r => {
+    AsyncStorage.getItem("@rush_mode").then(r => {
         if(r && r === "true") {
             setAlternativeDomains(true);
         }
@@ -58,7 +58,7 @@ export default function TabTwoScreen() {
     const toggleScripting = async () => setScriptingEnabled(((p) => {
         console.log(`p: ${p}`);
         if(!p) {
-            Alert.alert("Enabling JavaScript", "Enabling JavaScript can cause emails you receive to de-anonymize you." +
+            Alert.alert("AnonyMail", "Enabling JavaScript can cause emails you receive to de-anonymize you." +
                 "\n\nThis can do things such as: reveal your IP address to the email sender, let them know you are using a temporary email, and more." +
                 "\n\nOnly enable if you know what you are doing.", [
                 {
@@ -68,7 +68,7 @@ export default function TabTwoScreen() {
                     style: "cancel",
                 },
                 {
-                    text: "I know what I'm doing",
+                    text: "I know what I am doing",
                     onPress: async () => {
                         await AsyncStorage.setItem("@js_enabled", "true");
                         setScriptingEnabled(true);
@@ -86,7 +86,7 @@ export default function TabTwoScreen() {
     
     const toggleAlternativeDomains = async () => setAlternativeDomains(((p) => {
         if(!p) {
-            Alert.alert("Enabling Alternative Emails", "Alternative emails allow you to bypass certain restrictions.\n\n" +
+            Alert.alert("AnonyMail", "Alternative emails allow you to bypass certain restrictions.\n\n" +
                 "With this, you will see emails with less common endings (such as .cfd instead of .com).  They are easier to" +
                 " create, but should only be used if the normal .com domains are not working.", [
                 {
@@ -98,13 +98,15 @@ export default function TabTwoScreen() {
                 {
                     text: "Enable",
                     onPress: async () => {
-                        await AsyncStorage.setItem("@alternative_domains", "true");
+                        await AsyncStorage.setItem("@rush_mode", "true");
                         setAlternativeDomains(true);
+                        Alert.alert("AnonyMail", "Success!  Click 'Regenerate' on the Address screen to make a new email.");
                     }
                 }
             ]);
         } else {
-            AsyncStorage.setItem("@alternative_domains", "false");
+            AsyncStorage.setItem("@rush_mode", "false");
+            Alert.alert("AnonyMail", "Success!  Click 'Regenerate' on the Address screen to make a new email.");
             return false;
         }
         
@@ -113,8 +115,8 @@ export default function TabTwoScreen() {
     
     const toggleImages = async () => setImagesEnabled(((p) => {
         if (!p) {
-            Alert.alert("Enabling Images", "Enabling images will render images in emails.\n\n" +
-                "This could potentially reveal your IP address once an email is opened.", [
+            Alert.alert("AnonyMail", "Enabling images will render images in emails.\n\n" +
+                "This could potentially reveal your IP address once an email is opened.\nOnly use if you need to view images in emails.", [
                 {
                     text: "Cancel",
                     onPress: () => {
