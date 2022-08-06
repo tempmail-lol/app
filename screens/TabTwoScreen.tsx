@@ -6,6 +6,7 @@ import ModalShareThingy from "../util/ModalShareThingy";
 import {Email} from "tempmail.lol";
 import licenses from "../util/licenses";
 import {useState} from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 async function openSource() {
     const url = "https://github.com/tempmail-lol/app";
@@ -20,6 +21,7 @@ function openOSL() {
         "",
         licenses(),
         0,
+        "",
     ));
 }
 
@@ -31,28 +33,104 @@ const version = require("../app.json").expo.version;
 
 export default function TabTwoScreen() {
     
-    const [authEnabled, setAuthEnabled] = useState(false);
-    const toggleAuth = () => setAuthEnabled(p => !p);
-    
     const [scriptingEnabled, setScriptingEnabled] = useState(false);
-    const toggleScripting = () => setScriptingEnabled(((p) => {
-        if(p) {
-            Alert.prompt("Enabling JavaScript", "Enabling JavaScript can cause emails you receive to de-anonymize you.\nOnly enable if you know what you are doing.", [
+    const [alternativeDomains, setAlternativeDomains] = useState(false);
+    const [imagesEnabled, setImagesEnabled] = useState(false);
+    
+    AsyncStorage.getItem("@js_enabled").then(r => {
+        if(r && r === "true") {
+            setScriptingEnabled(true);
+        }
+    });
+    
+    AsyncStorage.getItem("@alternative_domains").then(r => {
+        if(r && r === "true") {
+            setAlternativeDomains(true);
+        }
+    });
+    
+    AsyncStorage.getItem("@images_enabled").then(r => {
+        if(r && r === "true") {
+            setImagesEnabled(true);
+        }
+    });
+    
+    const toggleScripting = async () => setScriptingEnabled(((p) => {
+        console.log(`p: ${p}`);
+        if(!p) {
+            Alert.alert("Enabling JavaScript", "Enabling JavaScript can cause emails you receive to de-anonymize you." +
+                "\n\nThis can do things such as: reveal your IP address to the email sender, let them know you are using a temporary email, and more." +
+                "\n\nOnly enable if you know what you are doing.", [
                 {
                     text: "Cancel",
                     onPress: () => {
                     },
-                    style: "default",
+                    style: "cancel",
                 },
                 {
                     text: "I know what I'm doing",
-                    onPress: () => {
+                    onPress: async () => {
+                        await AsyncStorage.setItem("@js_enabled", "true");
                         setScriptingEnabled(true);
                     },
                     style: "destructive",
                 }
             ]);
         } else {
+            AsyncStorage.setItem("@js_enabled", "false");
+            return false;
+        }
+        
+        return false;
+    }));
+    
+    const toggleAlternativeDomains = async () => setAlternativeDomains(((p) => {
+        if(!p) {
+            Alert.alert("Enabling Alternative Emails", "Alternative emails allow you to bypass certain restrictions.\n\n" +
+                "With this, you will see emails with less common endings (such as .cfd instead of .com).  They are easier to" +
+                " create, but should only be used if the normal .com domains are not working.", [
+                {
+                    text: "Cancel",
+                    onPress: () => {
+                    },
+                    style: "cancel",
+                },
+                {
+                    text: "Enable",
+                    onPress: async () => {
+                        await AsyncStorage.setItem("@alternative_domains", "true");
+                        setAlternativeDomains(true);
+                    }
+                }
+            ]);
+        } else {
+            AsyncStorage.setItem("@alternative_domains", "false");
+            return false;
+        }
+        
+        return false;
+    }));
+    
+    const toggleImages = async () => setImagesEnabled(((p) => {
+        if (!p) {
+            Alert.alert("Enabling Images", "Enabling images will render images in emails.\n\n" +
+                "This could potentially reveal your IP address once an email is opened.", [
+                {
+                    text: "Cancel",
+                    onPress: () => {
+                    },
+                    style: "cancel",
+                },
+                {
+                    text: "Enable",
+                    onPress: async () => {
+                        await AsyncStorage.setItem("@images_enabled", "true");
+                        setImagesEnabled(true);
+                    }
+                }
+            ]);
+        } else {
+            AsyncStorage.setItem("@images_enabled", "false");
             return false;
         }
         
@@ -65,33 +143,33 @@ export default function TabTwoScreen() {
             <Button title={"Open Source Licenses"} onPress={openOSL}/>
             <Button title={"Source Code"} onPress={openSource}/>
             <Button title={"Privacy Policy"} onPress={openPrivacyPolicy}/>
-            <View style={styles.switchArea}>
-                <Text style={styles.switchText}>Enable/Disable Switch</Text>
-                <Switch
-                    style={styles.switch}
-                    value={authEnabled}
-                    onValueChange={toggleScripting}
-                />
-            </View>
+            <Text style={styles.switchText}>Run JavaScript</Text>
+            <Switch
+                value={scriptingEnabled}
+                onValueChange={toggleScripting}
+            />
+            <Text style={styles.switchText}>Use alternative emails</Text>
+            <Switch
+                value={alternativeDomains}
+                onValueChange={toggleAlternativeDomains}
+            />
+            <Text style={styles.switchText}>Render images</Text>
+            <Switch
+                value={imagesEnabled}
+                onValueChange={toggleImages}
+            />
             <Text style={styles.version}>You are using AnonyMail version {version}</Text>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    //align the text to the leftmost side of the screen and the switch to the rightmost side of the screen
-    switchArea: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        marginTop: 10,
-    },
+    //align the text to the center and the switch below it
     switchText: {
         fontSize: 20,
+        marginTop: 20,
         marginRight: 10,
-    },
-    switch: {
-        marginLeft: 10,
+        textAlign: "right",
     },
     container: {
         flex: 1,

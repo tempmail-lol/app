@@ -7930,10 +7930,10 @@ temp@^0.8.4:
   dependencies:
     rimraf "~2.6.2"
 
-tempmail.lol@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/tempmail.lol/-/tempmail.lol-1.3.1.tgz#d92ea279459fc7a430d5c4d5b0136e6e0ad8dcbe"
-  integrity sha512-wrM5+gbDyj9rSj4xB7E8Pq3lWktdHIG2ECff0OjB1UNc2IZlo/7abI/q568MkiPza8OshUmt8inG21CB6MC3Cw==
+tempmail.lol@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/tempmail.lol/-/tempmail.lol-1.4.0.tgz#f4bbbf32cf4a912f1f59f4cabaec5cd7d744649d"
+  integrity sha512-4UlPueahXUcAqVC6NUDnL72mOVUTcRYijb/EiERhTSwtxYoSHpoO8V23e8hVTuFGgs3Q24AbU5AYNXNoEeSkDw==
   dependencies:
     node-fetch "^2.6.7"
     tslib "^2.4.0"

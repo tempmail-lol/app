@@ -5,6 +5,16 @@ import {Component} from "react";
 import {parse} from "node-html-parser";
 import {StatusBar} from "expo-status-bar";
 import {Text} from "../components/Themed";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+let js_enabled     = false;
+let images_enabled = false;
+
+//this is easier than working with async component witchcraft
+setInterval(async () => {
+    js_enabled = await AsyncStorage.getItem("@js_enabled") === "true";
+    images_enabled = await AsyncStorage.getItem("@images_enabled") === "true";
+}, 300);
 
 export default class ModalScreen extends Component<any> {
     render() {
@@ -21,6 +31,15 @@ export default class ModalScreen extends Component<any> {
             html.getElementsByTagName("head")[0].appendChild(parse(`<meta name="viewport" content="${viewport}">`));
         } else {
             html.appendChild(parse(`<head><meta name="viewport" content="${viewport}"></head>`));
+        }
+        
+        //remove the following tags: audio, embed, object, video, source, iframe
+        html.querySelectorAll("audio, embed, object, video, source, iframe").forEach(e => e.remove());
+        
+        //if images_enabled is false, remove all images and <link> tags
+        if(!images_enabled) {
+            html.querySelectorAll("img").forEach(img => img.remove());
+            html.querySelectorAll("link").forEach(link => link.remove());
         }
         
         return (
@@ -48,7 +67,7 @@ export default class ModalScreen extends Component<any> {
                     source={
                         {html: html.toString()}
                     }
-                    javaScriptEnabled={false}
+                    javaScriptEnabled={js_enabled}
                     style={styles.frame}
                 />
             </>
