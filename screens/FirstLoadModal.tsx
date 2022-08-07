@@ -28,7 +28,7 @@ export default class FirstLoadModal extends Component<any> {
                         How long to the email addresses last for?
                     </Text>
                     <Text style={styles.answer}>
-                        Email addresses on this app last up to one hour.
+                        Email addresses expire after one hour.
                     </Text>
                     <Text style={styles.question}>
                         Is this private and secure?
