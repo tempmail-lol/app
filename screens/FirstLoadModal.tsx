@@ -2,22 +2,21 @@ import {View, StyleSheet, Dimensions, TouchableHighlight, ScrollView} from "reac
 import {Component} from "react";
 import {StatusBar} from "expo-status-bar";
 import {Text} from "../components/Themed";
-import ModalShareThingy from "../util/ModalShareThingy";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default class FirstLoadModal extends Component<any> {
     
     render() {
         return (
-            <View style={styles.container}>
-                <StatusBar style="light" />
-                <Text style={styles.header}>
-                    Welcome to AnonyMail!
-                </Text>
-                <Text style={styles.info}>
-                    Using this app, you can generate anonymous email addresses!
-                </Text>
-                <ScrollView persistentScrollbar={true}>
+            <ScrollView persistentScrollbar={true}>
+                <View style={styles.container}>
+                    <StatusBar style="light" />
+                    <Text style={styles.header}>
+                        Welcome to AnonyMail!
+                    </Text>
+                    <Text style={styles.info}>
+                        Using this app, you can generate anonymous email addresses!
+                    </Text>
                     <Text style={styles.question}>
                         What is the purpose of generating temporary emails?
                     </Text>
@@ -37,18 +36,18 @@ export default class FirstLoadModal extends Component<any> {
                         Once emails are sent to you, they are deleted from our servers.  No-one can have
                         an email address that has already been generated.
                     </Text>
-                </ScrollView>
-                <TouchableHighlight
-                    onPress={async (event) => {
-                        await AsyncStorage.setItem("@lecture_1", "true");
-                        this.props.navigation.goBack();
-                    }}
-                >
-                    <View style={styles.start_view}>
-                        <Text style={styles.start}>Tap to generate your first email address!</Text>
-                    </View>
-                </TouchableHighlight>
-            </View>
+                    <TouchableHighlight
+                        onPress={async (event) => {
+                            await AsyncStorage.setItem("@lecture_1", "true");
+                            this.props.navigation.goBack();
+                        }}
+                    >
+                        <View style={styles.start_view}>
+                            <Text style={styles.start}>Tap to generate your first email address!</Text>
+                        </View>
+                    </TouchableHighlight>
+                </View>
+            </ScrollView>
         );
     }
     
