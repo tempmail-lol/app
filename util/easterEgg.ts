@@ -1,3 +1,5 @@
+import {Linking} from "react-native";
+
 export default function(times: number): boolean {
     switch(times) {
         case 10: alert("You do know you don't have to click copy so many times, right?"); break;
@@ -6,6 +8,7 @@ export default function(times: number): boolean {
         case 40: alert("Please stop."); break;
         case 50: alert("Halfway to 100!  Tired yet?"); break;
         case 60: alert("That's 60 times now..."); break;
+        case 69: alert("nice."); break;
         case 70: alert("Nothing better to do with your time?"); break;
         case 80: alert("How about a break?  Go do something fun."); break;
         case 90: alert("Are you serious?"); break;
@@ -43,7 +46,11 @@ export default function(times: number): boolean {
         case 900: alert("don't tell me... 900?"); break;
         case 998: alert("Congrats, you're at 998; however, if you click copy again the app will crash."); break;
         case 999: throw new Error();
-        case 1000: alert("Well looks like it didn't.  I'm not testing to see if it crashes or not.  I'll assume that it won't."); times = 0; break;
+        case 1000: alert("Well looks like it didn't.  I'm not testing to see if it crashes or not.  I'll assume that it won't."); break;
+        case 1002: alert("I think it might be raining outside, why don't you hit Copy again to check?"); break;
+        case 1003: Linking.openURL("https://weather.com"); break;
+        case 1004: alert("How is the weather?"); break;
+        case 1005: times = 0; break;
         default: return false;
     }
     
