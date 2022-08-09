@@ -4,7 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {reloadAsync} from "expo-updates";
 
 export default function onRegenerate() {
-    Alert.alert("TempMail", "Are you sure?  Your old email will be deleted as well as your inbox.", [
+    Alert.alert("AnonyMail", "Are you sure?  Your old email will be deleted as well as your inbox.", [
         {
             text: "Yes",
             style: "destructive",

@@ -1,4 +1,4 @@
-import {Alert, Button, Linking, StyleSheet, Switch} from 'react-native';
+import {Alert, Button, Linking, ScrollView, StyleSheet, Switch} from 'react-native';
 
 import {Text, View} from '../components/Themed';
 import {StatusBar} from "expo-status-bar";
@@ -140,32 +140,37 @@ export default function TabTwoScreen() {
     }));
     
     return (
-        <View style={styles.container}>
-            <StatusBar style="light" />
-            <Button title={"Open Source Licenses"} onPress={openOSL}/>
-            <Button title={"Source Code"} onPress={openSource}/>
-            <Button title={"Privacy Policy"} onPress={openPrivacyPolicy}/>
-            <Text style={styles.switchText}>Run JavaScript</Text>
-            <Switch
-                value={scriptingEnabled}
-                onValueChange={toggleScripting}
-            />
-            <Text style={styles.switchText}>Use alternative emails</Text>
-            <Switch
-                value={alternativeDomains}
-                onValueChange={toggleAlternativeDomains}
-            />
-            <Text style={styles.switchText}>Render images</Text>
-            <Switch
-                value={imagesEnabled}
-                onValueChange={toggleImages}
-            />
-            <Text style={styles.version}>You are using AnonyMail version {version}</Text>
-        </View>
+        <ScrollView style={styles.scrollView}>
+            <View style={styles.container}>
+                <StatusBar style="light" />
+                <Button title={"Open Source Licenses"} onPress={openOSL}/>
+                <Button title={"Source Code"} onPress={openSource}/>
+                <Button title={"Privacy Policy"} onPress={openPrivacyPolicy}/>
+                <Text style={styles.switchText}>Run JavaScript</Text>
+                <Switch
+                    value={scriptingEnabled}
+                    onValueChange={toggleScripting}
+                />
+                <Text style={styles.switchText}>Use alternative emails</Text>
+                <Switch
+                    value={alternativeDomains}
+                    onValueChange={toggleAlternativeDomains}
+                />
+                <Text style={styles.switchText}>Render images</Text>
+                <Switch
+                    value={imagesEnabled}
+                    onValueChange={toggleImages}
+                />
+                <Text style={styles.version}>You are using AnonyMail version {version}</Text>
+            </View>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
+    scrollView: {
+        marginTop: 50,
+    },
     //align the text to the center and the switch below it
     switchText: {
         fontSize: 20,
