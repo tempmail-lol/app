@@ -53,6 +53,7 @@ const loc: LocalizationType = {
         version: "You are using AnonyMail version %VERSION%".toUpperCase(),
         languages: "Languages:".toUpperCase(),
         language_change_message: "You will need to restart the app to change languages.".toUpperCase(),
+        credits_button_label: "VIEW TRANSLATORS"
     },
     other: {
         addresses_tab: "ADDRESS",

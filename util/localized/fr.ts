@@ -53,6 +53,7 @@ const loc: LocalizationType = {
         version: "Vous utilisez AnonyMail version %VERSION%",
         languages: "Langues:",
         language_change_message: "Redémarrez votre application pour ces effets se produisent",
+        credits_button_label: "Voir les traducteurs"
     },
     other: {
         addresses_tab: "Adresses",

@@ -29,6 +29,10 @@ function openOSL() {
     ));
 }
 
+function openCredits() {
+    ModalShareThingy.modal.navigate("Credits");
+}
+
 async function openPrivacyPolicy() {
     await Linking.openURL("https://tempmail.lol/privacy-policy.html");
 }
@@ -154,6 +158,7 @@ export default function TabTwoScreen() {
                 <Button title={local.settings_screen.licenses_button_label} onPress={openOSL}/>
                 <Button title={local.settings_screen.source_code_button_label} onPress={openSource}/>
                 <Button title={local.settings_screen.privacy_policy_button_label} onPress={openPrivacyPolicy}/>
+                <Button title={local.settings_screen.credits_button_label} onPress={openCredits}/>
                 <Text style={styles.switchText}>{local.settings_screen.javascript_switch_label}</Text>
                 <Switch
                     value={scriptingEnabled}

@@ -45,6 +45,7 @@ export type LocalizationType = {
         version: string,
         languages: string,
         language_change_message: string,
+        credits_button_label: string,
     },
     other: {
         addresses_tab: string,

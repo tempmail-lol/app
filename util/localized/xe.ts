@@ -48,6 +48,7 @@ const loc: LocalizationType = {
         version: "undefined", //use %VERSION% for version placeholder
         languages: "undefined",
         language_change_message: "undefined",
+        credits_button_label: "undefined",
     },
     other: {
         addresses_tab: "undefined",

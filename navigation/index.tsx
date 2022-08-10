@@ -20,6 +20,7 @@ import LinkingConfiguration from './LinkingConfiguration';
 import ModalShareThingy from "../util/ModalShareThingy";
 import FirstLoadModal from "../screens/FirstLoadModal";
 import CoolStorage from "../util/CoolStorage";
+import TranslatorsModal from "../screens/TranslatorsModal";
 
 export default function Navigation({colorScheme}: { colorScheme: ColorSchemeName }) {
     return (
@@ -54,6 +55,13 @@ function RootNavigator() {
                     {
                         headerShown: false,
                         gestureEnabled: false,
+                    }
+                }/>
+                {/*@ts-ignore*/}
+                <Stack.Screen name={"Credits"} component={TranslatorsModal} options={
+                    {
+                        headerShown: false,
+                        gestureEnabled: true,
                     }
                 }/>
             </Stack.Group>

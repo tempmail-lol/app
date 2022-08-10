@@ -48,6 +48,7 @@ const loc: LocalizationType = {
         version: "", //use %VERSION% for version placeholder
         languages: "",
         language_change_message: "",
+        credits_button_label: "",
     },
     other: {
         addresses_tab: "",

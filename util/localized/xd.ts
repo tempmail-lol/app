@@ -55,6 +55,7 @@ const loc: LocalizationType = {
         version: "Ye be usin AnonyMail %VERSION%", //use %VERSION% for version placeholder
         languages: "Languages:",
         language_change_message: "Ye be changing languages.  Ye app needs restartin' matey.",
+        credits_button_label: "View ye Rosetta Stone creators",
     },
     other: {
         addresses_tab: "On Deck",
