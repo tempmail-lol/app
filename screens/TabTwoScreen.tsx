@@ -7,6 +7,10 @@ import {Email} from "tempmail.lol";
 import licenses from "../util/licenses";
 import {useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {Picker} from "@react-native-picker/picker";
+import CoolStorage from "../util/CoolStorage";
+import localize from "../util/localize";
+import {LangType} from "../util/LangType";
 
 async function openSource() {
     const url = "https://github.com/tempmail-lol/app";
@@ -36,6 +40,7 @@ export default function TabTwoScreen() {
     const [scriptingEnabled, setScriptingEnabled] = useState(false);
     const [alternativeDomains, setAlternativeDomains] = useState(false);
     const [imagesEnabled, setImagesEnabled] = useState(false);
+    const [selectedLanguage, setSelectedLanguage] = useState("en");
     
     AsyncStorage.getItem("@js_enabled").then(r => {
         if(r && r === "true") {
@@ -55,20 +60,26 @@ export default function TabTwoScreen() {
         }
     });
     
+    AsyncStorage.getItem("@language").then((r) => {
+        if(r) {
+            setSelectedLanguage(r);
+        }
+    });
+    
+    const local = CoolStorage.language;
+    
     const toggleScripting = async () => setScriptingEnabled(((p) => {
         console.log(`p: ${p}`);
         if(!p) {
-            Alert.alert("AnonyMail", "Enabling JavaScript can cause emails you receive to de-anonymize you." +
-                "\n\nThis can do things such as: reveal your IP address to the email sender, let them know you are using a temporary email, and more." +
-                "\n\nOnly enable if you know what you are doing.", [
+            Alert.alert("AnonyMail", local.settings_screen.javascript_enable_warning, [
                 {
-                    text: "Cancel",
+                    text: local.settings_screen.javascript_enable_warning_decline,
                     onPress: () => {
                     },
                     style: "cancel",
                 },
                 {
-                    text: "I know what I am doing",
+                    text: local.settings_screen.javascript_enable_warning_accept,
                     onPress: async () => {
                         await AsyncStorage.setItem("@js_enabled", "true");
                         setScriptingEnabled(true);
@@ -86,27 +97,25 @@ export default function TabTwoScreen() {
     
     const toggleAlternativeDomains = async () => setAlternativeDomains(((p) => {
         if(!p) {
-            Alert.alert("AnonyMail", "Alternative emails allow you to bypass certain restrictions.\n\n" +
-                "With this, you will see emails with less common endings (such as .cfd instead of .com).  They are easier to" +
-                " create, but should only be used if the normal .com domains are not working.", [
+            Alert.alert("AnonyMail", local.settings_screen.alternative_emails_message, [
                 {
-                    text: "Cancel",
+                    text: local.settings_screen.cancel,
                     onPress: () => {
                     },
                     style: "cancel",
                 },
                 {
-                    text: "Enable",
+                    text: local.settings_screen.enable,
                     onPress: async () => {
                         await AsyncStorage.setItem("@rush_mode", "true");
                         setAlternativeDomains(true);
-                        Alert.alert("AnonyMail", "Success!  Click 'Regenerate' on the Address screen to make a new email.");
+                        Alert.alert("AnonyMail", local.settings_screen.alternative_emails_post_accept_message);
                     }
                 }
             ]);
         } else {
             AsyncStorage.setItem("@rush_mode", "false");
-            Alert.alert("AnonyMail", "Success!  Click 'Regenerate' on the Address screen to make a new email.");
+            Alert.alert("AnonyMail", local.settings_screen.alternative_emails_post_accept_message);
             return false;
         }
         
@@ -115,16 +124,15 @@ export default function TabTwoScreen() {
     
     const toggleImages = async () => setImagesEnabled(((p) => {
         if (!p) {
-            Alert.alert("AnonyMail", "Enabling images will render images in emails.\n\n" +
-                "This could potentially reveal your IP address once an email is opened.\nOnly use if you need to view images in emails.", [
+            Alert.alert("AnonyMail", local.settings_screen.render_images_warning, [
                 {
-                    text: "Cancel",
+                    text: local.settings_screen.cancel,
                     onPress: () => {
                     },
                     style: "cancel",
                 },
                 {
-                    text: "Enable",
+                    text: local.settings_screen.enable,
                     onPress: async () => {
                         await AsyncStorage.setItem("@images_enabled", "true");
                         setImagesEnabled(true);
@@ -143,25 +151,44 @@ export default function TabTwoScreen() {
         <ScrollView style={styles.scrollView}>
             <View style={styles.container}>
                 <StatusBar style="light" />
-                <Button title={"Open Source Licenses"} onPress={openOSL}/>
-                <Button title={"Source Code"} onPress={openSource}/>
-                <Button title={"Privacy Policy"} onPress={openPrivacyPolicy}/>
-                <Text style={styles.switchText}>Run JavaScript</Text>
+                <Button title={local.settings_screen.licenses_button_label} onPress={openOSL}/>
+                <Button title={local.settings_screen.source_code_button_label} onPress={openSource}/>
+                <Button title={local.settings_screen.privacy_policy_button_label} onPress={openPrivacyPolicy}/>
+                <Text style={styles.switchText}>{local.settings_screen.javascript_switch_label}</Text>
                 <Switch
                     value={scriptingEnabled}
                     onValueChange={toggleScripting}
                 />
-                <Text style={styles.switchText}>Use alternative emails</Text>
+                <Text style={styles.switchText}>{local.settings_screen.alternative_emails_switch_label}</Text>
                 <Switch
                     value={alternativeDomains}
                     onValueChange={toggleAlternativeDomains}
                 />
-                <Text style={styles.switchText}>Render images</Text>
+                <Text style={styles.switchText}>{local.settings_screen.render_images_switch_label}</Text>
                 <Switch
                     value={imagesEnabled}
                     onValueChange={toggleImages}
                 />
-                <Text style={styles.version}>You are using AnonyMail version {version}</Text>
+                <Text style={styles.version}>{local.settings_screen.version.replace("%VERSION%", version)}</Text>
+                <Text style={styles.version}>{local.settings_screen.languages}</Text>
+                <Picker
+                    selectedValue={selectedLanguage}
+                    onValueChange={async (lang) => {
+                        setSelectedLanguage(lang);
+                        const old_lang = await AsyncStorage.getItem("@language") || "";
+                        await AsyncStorage.setItem("@language", lang);
+                        CoolStorage.language = localize(lang as LangType);
+                        console.log(`lang: ${lang}`);
+                        if(old_lang !== lang) {
+                            Alert.alert("AnonyMail", localize(lang as LangType).settings_screen.language_change_message);
+                        }
+                    }}
+                    style={styles.picker}
+                    itemStyle={styles.pickerItem}
+                >
+                    <Picker.Item label="English" value="en" />
+                    <Picker.Item label="French" value="fr" />
+                </Picker>
             </View>
         </ScrollView>
     );
@@ -195,5 +222,13 @@ const styles = StyleSheet.create({
     version: {
         marginTop: 10,
         fontSize: 22,
+    },
+    picker: {
+        width: '100%',
+        height: 200,
+        backgroundColor: "#000000"
+    },
+    pickerItem: {
+        color: "#FFFFFF",
     }
 });

@@ -2,11 +2,38 @@ import {Alert} from "react-native";
 import CoolStorage from "./CoolStorage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {reloadAsync} from "expo-updates";
+import localize from "./localize";
 
+/**
+ * On the regenerate button.
+ * @returns {boolean} true if the home screen should refresh, false otherwise.
+ */
 export default function onRegenerate() {
-    Alert.alert("AnonyMail", "Are you sure?  Your old email will be deleted as well as your inbox.", [
+    
+    //change the language to pirate speak if the user has clicked the copy button
+    //6 times and then clicked the regenerate button.
+    if(CoolStorage.times === 6) {
+        CoolStorage.language = localize("xd");
+        return true;
+    }
+    
+    //change the language to undefined if the user has clicked the copy button
+    //7 times and then clicked the regenerate button.
+    if(CoolStorage.times === 7) {
+        CoolStorage.language = localize("xe");
+        return true;
+    }
+    
+    if(CoolStorage.times === 8) {
+        CoolStorage.language = localize("xa");
+        return true;
+    }
+    
+    const local = CoolStorage.language;
+    
+    Alert.alert("AnonyMail", local.address_screen.regenerate_prompt_message, [
         {
-            text: "Yes",
+            text: local.address_screen.regenerate_prompt_yes,
             style: "destructive",
             onPress: (async () => {
                 console.log(`clearing inbox`);
@@ -21,8 +48,10 @@ export default function onRegenerate() {
             }),
         },
         {
-            text: "No",
+            text: local.address_screen.regenerate_prompt_no,
             style: "cancel",
         }
     ]);
+    
+    return false;
 }

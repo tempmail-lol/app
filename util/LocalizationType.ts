@@ -1,5 +1,4 @@
-
-type Localization = {
+export type LocalizationType = {
     first_load_screen: {
         welcome: string;
         info: string;
@@ -20,6 +19,7 @@ type Localization = {
         copy_button: string,
         regenerate_button: string,
         copy_message: string,
+        copy_fail: string,
         regenerate_prompt_message: string,
         regenerate_prompt_no: string,
         regenerate_prompt_yes: string,
@@ -43,18 +43,12 @@ type Localization = {
         enable: string,
         cancel: string,
         version: string,
+        languages: string,
+        language_change_message: string,
     },
+    other: {
+        addresses_tab: string,
+        emails_tab: string,
+        settings_tab: string,
+    }
 };
-
-// const english: Localization = {
-//     first_load_screen: {
-//         welcome: ""
-//     }
-// }
-
-/**
- * @returns Localization
- */
-export default function(lang: "en" | "xd"): Localization {
-    return JSON.parse("{}");
-}

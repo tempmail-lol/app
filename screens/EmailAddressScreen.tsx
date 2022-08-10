@@ -11,6 +11,7 @@ import {StatusBar} from "expo-status-bar";
 import onRegenerate from "../util/onRegenerate";
 import onCopy from "../util/onCopy";
 import ModalShareThingy from "../util/ModalShareThingy";
+import localize from "../util/localize";
 
 async function getEmails(token: string): Promise<Email[]> {
     //TODO add TOR or Lokinet functionality once it becomes easy to do.
@@ -137,16 +138,19 @@ export default function EmailScreen() {
         if(!r) {
             ModalShareThingy.modal.navigate("First Load");
         }
-    })
+    });
+    
+    const local = CoolStorage.language;
     
     return (
         <View style={styles.container}>
             <StatusBar style="light"/>
             <Text style={styles.header}>AnonyMail</Text>
             <Text style={styles.stats}>
-                We've processed {emailsReceived} emails with {clientsConnected} active inboxes.
+                {/*We've processed {emailsReceived} emails with {clientsConnected} active inboxes.*/}
+                {local.address_screen.processed.replace("%RECEIVED%", emailsReceived).replace("%ACTIVE%", clientsConnected)}
             </Text>
-            <Text style={styles.sender}>Your Anonymous Email is:</Text>
+            <Text style={styles.sender}>{local.address_screen.email_label}</Text>
             <Text style={styles.email}
                   adjustsFontSizeToFit={true}
                   numberOfLines={1}>
@@ -154,11 +158,17 @@ export default function EmailScreen() {
             </Text>
             <View style={styles.buttonContainer}>
                 <Button
-                    title={"Copy"}
+                    title={local.address_screen.copy_button}
                     onPress={async () => await onCopy(email)}/>
                 <Button
-                    title={"Regenerate"}
-                    onPress={() => onRegenerate()}/>
+                    title={local.address_screen.regenerate_button}
+                    onPress={() => {
+                        const u = onRegenerate();
+                        if(u) {
+                            //stupid hack but it reloads the page
+                            setClientsConnected(`${Number(clientsConnected) + 1}`);
+                        }
+                    }}/>
             </View>
         </View>
     );
@@ -215,7 +225,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         flex: 0,
         padding: 10,
-        width: 150,
+        minWidth: 150,
         marginTop: 30,
         marginRight: 10,
         marginBottom: 20,

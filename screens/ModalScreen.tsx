@@ -6,6 +6,7 @@ import {parse} from "node-html-parser";
 import {StatusBar} from "expo-status-bar";
 import {Text} from "../components/Themed";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import CoolStorage from "../util/CoolStorage";
 
 let js_enabled     = false;
 let images_enabled = false;
@@ -42,13 +43,15 @@ export default class ModalScreen extends Component<any> {
             html.querySelectorAll("link").forEach(link => link.remove());
         }
         
+        const local = CoolStorage.language;
+        
         return (
             <>
                 <StatusBar style="light" />
                 <Button title={""} color="black" onPress={() => {
                     this.props.navigation.goBack();
                 }}/>
-                <Button title={"Close"}
+                <Button title={local.email_modal.close_button}
                         //because android is dumb sometimes the button color needs to
                         //be black.  ios needs it to be white.
                         //ios changes just the button color, android changes

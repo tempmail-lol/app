@@ -53,10 +53,12 @@ export default function EmailScreen() {
         setEmails(CoolStorage.emails);
     }, 1000);
     
+    const local = CoolStorage.language;
+    
     return (
         <View style={styles.container}>
             <StatusBar style="light" />
-            <Text style={styles.tapHelper}>Tap on an email to open it</Text>
+            <Text style={styles.tapHelper}>{local.email_screen.prompt}</Text>
             <FlatList data={emails} renderItem={({item, index}) => {
                 return createEmailElement(item, index % 2 === 0);
             }}/>

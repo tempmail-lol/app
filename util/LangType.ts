@@ -1,2 +1,2 @@
 
-export type LangType = "en" | "xd";
+export type LangType = "en" | "xd" | "fr" | "xe" | "xa";

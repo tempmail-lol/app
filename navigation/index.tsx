@@ -19,6 +19,7 @@ import {RootStackParamList, RootTabParamList, RootTabScreenProps} from '../types
 import LinkingConfiguration from './LinkingConfiguration';
 import ModalShareThingy from "../util/ModalShareThingy";
 import FirstLoadModal from "../screens/FirstLoadModal";
+import CoolStorage from "../util/CoolStorage";
 
 export default function Navigation({colorScheme}: { colorScheme: ColorSchemeName }) {
     return (
@@ -69,6 +70,8 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 function BottomTabNavigator() {
     const colorScheme = "dark";
     
+    const local = CoolStorage.language;
+    
     return (
         // @ts-ignore
         <BottomTab.Navigator
@@ -87,6 +90,7 @@ function BottomTabNavigator() {
                     ModalShareThingy.modal = navigation;
                     return ({
                         sender: 'Emails',
+                        title: local.other.addresses_tab,
                         tabBarAllowFontScaling: false,
                         headerTitleAllowFontScaling: false,
                         tabBarIcon: ({color}) => <TabBarIcon name="at" color={color}/>,
@@ -102,6 +106,7 @@ function BottomTabNavigator() {
                 options={({navigation}: RootTabScreenProps<'Emails'>) => {
                     ModalShareThingy.modal = navigation;
                     return ({
+                        title: local.other.emails_tab,
                         sender: 'Emails',
                         tabBarAllowFontScaling: false,
                         headerTitleAllowFontScaling: false,
@@ -113,7 +118,7 @@ function BottomTabNavigator() {
                 name="TabTwo"
                 component={TabTwoScreen}
                 options={{
-                    title: 'Settings',
+                    title: local.other.settings_tab,
                     tabBarAllowFontScaling: false,
                     headerTitleAllowFontScaling: false,
                     tabBarIcon: ({color}) => <TabBarIcon name="gear" color={color}/>,
