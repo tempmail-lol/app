@@ -14,6 +14,7 @@ export default function onRegenerate() {
     //6 times and then clicked the regenerate button.
     if(CoolStorage.times === 6) {
         CoolStorage.language = localize("xd");
+        AsyncStorage.setItem("@language", "xd");
         return true;
     }
     
@@ -21,11 +22,13 @@ export default function onRegenerate() {
     //7 times and then clicked the regenerate button.
     if(CoolStorage.times === 7) {
         CoolStorage.language = localize("xe");
+        AsyncStorage.setItem("@language", "xe");
         return true;
     }
     
     if(CoolStorage.times === 8) {
         CoolStorage.language = localize("xa");
+        AsyncStorage.setItem("@language", "xa");
         return true;
     }
     
