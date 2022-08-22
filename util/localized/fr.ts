@@ -43,7 +43,7 @@ const loc: LocalizationType = {
         alternative_emails_switch_label: "Utiliser une adresse alternative",
         alternative_emails_message: "Les adresses alternatives peuvent vous permettre contourner certaines restrictions.\n\n" +
             "En choisissant cette option, vous verrez des e-mails (avec des terminiaisons inhabituelles .cfd à la place de .com)." +
-            "Elles sont plus faciles à créer, mais vous ne devriez les utiliser que si les adresse normales en .com ne fonctionnent pas.",
+            " Elles sont plus faciles à créer, mais vous ne devriez les utiliser que si les adresse normales en .com ne fonctionnent pas.",
         alternative_emails_post_accept_message: "Succès!  Cliquez sur « Générer une nouvelle adresse » sur l'onglet des addresses pour créer une nouvelle adresse e-mail.",
         render_images_switch_label: "Afficher des images",
         render_images_warning: "L'activation des images les afficheront dans les e-mails reçus.\n\n" +
@@ -52,7 +52,7 @@ const loc: LocalizationType = {
         enable: "Autoriser",
         version: "Vous utilisez AnonyMail version %VERSION%",
         languages: "Langues:",
-        language_change_message: "Redémarrez votre application pour ces effets se produisent",
+        language_change_message: "Redémarrez votre application pour les changements",
         credits_button_label: "Voir les traducteurs"
     },
     other: {
