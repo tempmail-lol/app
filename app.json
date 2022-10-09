@@ -23,6 +23,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "net.epolite.tempmail",
       "icon": "./assets/images/icon.png",
+      "buildNumber": "2",
       "splash": {
         "backgroundColor": "#000000",
         "image": "./assets/images/splash.png",

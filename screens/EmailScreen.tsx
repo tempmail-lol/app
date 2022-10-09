@@ -1,4 +1,4 @@
-import {Dimensions, FlatList, Pressable, StyleSheet} from 'react-native';
+import {Dimensions, FlatList, Platform, Pressable, StyleSheet} from 'react-native';
 
 import {Text, View} from '../components/Themed';
 import CoolStorage from "../util/CoolStorage";
@@ -6,6 +6,9 @@ import {useState} from "react";
 import {Email} from "tempmail.lol";
 import ModalShareThingy from "../util/ModalShareThingy";
 import {StatusBar} from "expo-status-bar";
+import {AdMobBanner} from "expo-ads-admob";
+import {requestTrackingPermissionsAsync} from "expo-tracking-transparency";
+import {DeviceType, getDeviceTypeAsync} from "expo-device";
 
 function openEmail(email: Email): any {
     console.log(`pressed`)
@@ -45,9 +48,30 @@ function createEmailElement(email: Email, odd: boolean) {
     );
 }
 
+type BannerSize = 'banner' | 'largeBanner' | 'mediumRectangle' | 'fullBanner' | 'leaderboard' | 'smartBannerPortrait' | 'smartBannerLandscape';
+
 export default function EmailScreen() {
     
     const [emails, setEmails] = useState(CoolStorage.emails);
+    const [personalizedAds, setPersonalizedAds] = useState(false);
+    const [bannerSize, setBannerSize] = useState("banner" as BannerSize);
+    
+    (async () => {
+        const {status} = await requestTrackingPermissionsAsync();
+        if(status === "granted") {
+            setPersonalizedAds(true);
+        } else {
+            setPersonalizedAds(false);
+        }
+    })();
+    
+    //check if the device is a tablet
+    (async () => {
+        const d = await getDeviceTypeAsync();
+        if(d === DeviceType.TABLET) {
+            setBannerSize("smartBannerPortrait");
+        }
+    })();
     
     setInterval(() => {
         setEmails(CoolStorage.emails);
@@ -62,6 +86,15 @@ export default function EmailScreen() {
             <FlatList data={emails} renderItem={({item, index}) => {
                 return createEmailElement(item, index % 2 === 0);
             }}/>
+            <View style={styles.ad}>
+                <AdMobBanner
+                    bannerSize={bannerSize}
+                    //no ads on android until it gets approved
+                    adUnitID={Platform.OS === "ios" ? "ca-app-pub-5608964063399729/7284845761" : ""}
+                    servePersonalizedAds={personalizedAds}
+                    onDidFailToReceiveAdWithError={(e) => console.log(e)}
+                />
+            </View>
         </View>
     );
 }
@@ -69,6 +102,7 @@ export default function EmailScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        alignItems: "center",
     },
     tapHelper: {
         //dynamically change the font size based on the screen size (was 32)
@@ -95,5 +129,10 @@ const styles = StyleSheet.create({
         fontSize: 16,
         paddingTop: "1%",
         paddingBottom: "3%",
+    },
+    ad: {
+        position: "absolute",
+        bottom: 0,
+        alignItems: "center",
     }
 });

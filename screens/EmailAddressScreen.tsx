@@ -11,9 +11,9 @@ import {StatusBar} from "expo-status-bar";
 import onRegenerate from "../util/onRegenerate";
 import onCopy from "../util/onCopy";
 import ModalShareThingy from "../util/ModalShareThingy";
-import localize from "../util/localize";
-import {AdMobBanner, setTestDeviceIDAsync} from "expo-ads-admob";
+import {AdMobBanner} from "expo-ads-admob";
 import {requestTrackingPermissionsAsync} from "expo-tracking-transparency";
+import {DeviceType, getDeviceTypeAsync} from "expo-device";
 
 async function getEmails(token: string): Promise<Email[]> {
     //TODO add TOR or Lokinet functionality once it becomes easy to do.
@@ -38,12 +38,15 @@ async function getStats(): Promise<{clients_connected: string, emails_received: 
     };
 }
 
+type BannerSize = 'banner' | 'largeBanner' | 'mediumRectangle' | 'fullBanner' | 'leaderboard' | 'smartBannerPortrait' | 'smartBannerLandscape';
+
 export default function EmailScreen() {
     const [email, setEmail] = useState("");
     const [timer, setTimer] = useState([]);
     const [emailsReceived, setEmailsReceived] = useState("[loading]");
     const [clientsConnected, setClientsConnected] = useState("[loading]");
     const [personalizedAds, setPersonalizedAds] = useState(false);
+    const [bannerSize, setBannerSize] = useState("banner" as BannerSize);
     
     console.log(email);
     
@@ -60,6 +63,14 @@ export default function EmailScreen() {
             setPersonalizedAds(true);
         } else {
             setPersonalizedAds(false);
+        }
+    })();
+    
+    //check if the device is a tablet
+    (async () => {
+        const d = await getDeviceTypeAsync();
+        if(d === DeviceType.TABLET) {
+            setBannerSize("smartBannerPortrait");
         }
     })();
     
@@ -184,7 +195,7 @@ export default function EmailScreen() {
             </View>
             <View style={styles.ad}>
                 <AdMobBanner
-                    bannerSize={"fullBanner"}
+                    bannerSize={bannerSize}
                     //no ads on android until it gets approved
                     adUnitID={Platform.OS === "ios" ? "ca-app-pub-5608964063399729/2998062499" : ""}
                     servePersonalizedAds={personalizedAds}
@@ -261,7 +272,5 @@ const styles = StyleSheet.create({
     ad: {
         position: "absolute",
         bottom: 0,
-        width: "100%",
-        maxWidth: "100%",
     }
 });
