@@ -10,6 +10,12 @@ import localize from "./localize";
  */
 export default function onRegenerate() {
     
+    if(CoolStorage.times === 5) {
+        //remove the 
+        AsyncStorage.removeItem("@lecture_1");
+        return true;
+    }
+    
     //change the language to pirate speak if the user has clicked the copy button
     //6 times and then clicked the regenerate button.
     if(CoolStorage.times === 6) {

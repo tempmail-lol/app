@@ -1,4 +1,4 @@
-import {View, StyleSheet, Dimensions, Button, Linking} from "react-native";
+import {View, StyleSheet, Dimensions, Button, Linking, ScrollView} from "react-native";
 import {Component} from "react";
 import {Text} from "../components/Themed";
 
@@ -10,14 +10,16 @@ export default class TranslatorsModal extends Component<any> {
     
     render() {
         return (
-            <View>
+            <ScrollView>
                 <Text style={styles.header}>
                     Translators of AnonyMail
                 </Text>
                 <Text style={styles.lang}>French (Français)</Text>
                 <Text style={styles.translator}>Thanks to Aidan Powell for translating the app into French!</Text>
                 <Button title={"Aidan Powell's LinkedIn"} onPress={() => openLinkedIn("aidanpowell")}/>
-            </View>
+                <Text style={styles.lang}>Spanish (Español)</Text>
+                <Text style={styles.translator}>The Spanish translations were made using OpenAI, and not by a human.  They may not be perfectly accurate.</Text>
+            </ScrollView>
         )
     }
     

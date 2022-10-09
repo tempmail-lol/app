@@ -1,60 +1,77 @@
 {
-    "expo": {
-        "name": "AnonyMail",
-        "slug": "anonymail",
-        "version": "1.7.3",
-        "orientation": "portrait",
-        "icon": "./assets/images/icon.png",
-        "scheme": "myapp",
-        "userInterfaceStyle": "automatic",
-        "splash": {
-            "image": "./assets/images/splash.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#ffffff"
-        },
-        "updates": {
-            "fallbackToCacheTimeout": 0,
-            "url": "https://u.expo.dev/92232218-e54c-4ba2-9a6d-141c1a89bb80"
-        },
-        "assetBundlePatterns": [
-            "**/*"
-        ],
-        "ios": {
-            "supportsTablet": true,
-            "bundleIdentifier": "net.epolite.tempmail",
-            "icon": "./assets/images/icon.png",
-            "splash": {
-                "backgroundColor": "#000000",
-                "image": "./assets/images/splash.png",
-                "resizeMode": "contain"
-            },
-            "userInterfaceStyle": "dark",
-            "associatedDomains": [
-                "tempmail.lol",
-                "tempmail.tv"
-            ],
-            "usesIcloudStorage": false,
-            "requireFullScreen": false
-        },
-        "android": {
-            "adaptiveIcon": {
-                "foregroundImage": "./assets/images/adaptive-icon.png",
-                "backgroundColor": "#ffffff"
-            },
-            "package": "net.epolite.tempmail",
-            "allowBackup": false,
-            "icon": "./assets/images/icon.png",
-            "splash": {
-                "image": "./assets/images/splash.png",
-                "resizeMode": "native",
-                "backgroundColor": "#000000"
-            }
-        },
-        "web": {
-            "favicon": "./assets/images/favicon.png"
-        },
-        "runtimeVersion": {
-            "policy": "sdkVersion"
+  "expo": {
+    "name": "AnonyMail",
+    "slug": "anonymail",
+    "version": "1.8.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/92232218-e54c-4ba2-9a6d-141c1a89bb80"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "net.epolite.tempmail",
+      "icon": "./assets/images/icon.png",
+      "splash": {
+        "backgroundColor": "#000000",
+        "image": "./assets/images/splash.png",
+        "resizeMode": "contain"
+      },
+      "userInterfaceStyle": "dark",
+      "associatedDomains": [
+        "tempmail.lol",
+        "tempmail.tv"
+      ],
+      "usesIcloudStorage": false,
+      "requireFullScreen": false,
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-5608964063399729~5580865946"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "net.epolite.tempmail",
+      "allowBackup": false,
+      "icon": "./assets/images/icon.png",
+      "splash": {
+        "image": "./assets/images/splash.png",
+        "resizeMode": "native",
+        "backgroundColor": "#000000"
+      }
+    },
+    "web": {
+      "favicon": "./assets/images/favicon.png"
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "plugins": [
+      [
+        "expo-tracking-transparency",
+        {
+          "userTrackingPermission": "This identifier will be used to deliver personalized ads to you."
         }
-    }
+      ],
+      [
+        "expo-ads-admob",
+        {
+          "userTrackingPermission": "This identifier will be used to deliver personalized ads to you."
+        }
+      ]
+    ]
+  }
 }

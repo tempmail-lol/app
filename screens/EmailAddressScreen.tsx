@@ -1,4 +1,4 @@
-import {Dimensions, Pressable, StyleSheet} from 'react-native';
+import {Dimensions, Platform, Pressable, StyleSheet} from 'react-native';
 
 import {reloadAsync} from "expo-updates";
 
@@ -12,6 +12,8 @@ import onRegenerate from "../util/onRegenerate";
 import onCopy from "../util/onCopy";
 import ModalShareThingy from "../util/ModalShareThingy";
 import localize from "../util/localize";
+import {AdMobBanner, setTestDeviceIDAsync} from "expo-ads-admob";
+import {requestTrackingPermissionsAsync} from "expo-tracking-transparency";
 
 async function getEmails(token: string): Promise<Email[]> {
     //TODO add TOR or Lokinet functionality once it becomes easy to do.
@@ -41,6 +43,7 @@ export default function EmailScreen() {
     const [timer, setTimer] = useState([]);
     const [emailsReceived, setEmailsReceived] = useState("[loading]");
     const [clientsConnected, setClientsConnected] = useState("[loading]");
+    const [personalizedAds, setPersonalizedAds] = useState(false);
     
     console.log(email);
     
@@ -50,6 +53,15 @@ export default function EmailScreen() {
             setEmailsReceived(r.emails_received);
         });
     }
+    
+    (async () => {
+        const {status} = await requestTrackingPermissionsAsync();
+        if(status === "granted") {
+            setPersonalizedAds(true);
+        } else {
+            setPersonalizedAds(false);
+        }
+    })();
     
     if (!email) {
         
@@ -170,6 +182,15 @@ export default function EmailScreen() {
                         }
                     }}/>
             </View>
+            <View style={styles.ad}>
+                <AdMobBanner
+                    bannerSize={"fullBanner"}
+                    //no ads on android until it gets approved
+                    adUnitID={Platform.OS === "ios" ? "ca-app-pub-5608964063399729/2998062499" : ""}
+                    servePersonalizedAds={personalizedAds}
+                    onDidFailToReceiveAdWithError={(e) => console.log(e)}
+                />
+            </View>
         </View>
     );
 }
@@ -236,5 +257,11 @@ const styles = StyleSheet.create({
         color: "#fff",
         textAlign: "center",
         fontSize: 22,
+    },
+    ad: {
+        position: "absolute",
+        bottom: 0,
+        width: "100%",
+        maxWidth: "100%",
     }
 });

@@ -193,6 +193,7 @@ export default function TabTwoScreen() {
                 >
                     <Picker.Item label="English" value="en" />
                     <Picker.Item label="French" value="fr" />
+                    <Picker.Item label="Spanish" value="es" />
                 </Picker>
             </View>
         </ScrollView>
