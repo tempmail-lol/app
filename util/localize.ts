@@ -7,7 +7,7 @@ import fr from "./localized/fr";
 import xe from "./localized/xe";
 import xa from "./localized/xa";
 import es from "./localized/es";
-
+import xr from "./localized/xr";
 
 export default function(lang: LangType): LocalizationType {
     switch(lang) {
@@ -23,6 +23,8 @@ export default function(lang: LangType): LocalizationType {
             return xa;
         case "es":
             return es;
+        case "xr":
+            return xr;
         default:
             return en;
     }

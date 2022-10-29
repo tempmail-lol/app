@@ -1,2 +1,5 @@
 
-export type LangType = "en" | "xd" | "fr" | "xe" | "xa" | "es";
+export type LangType = 
+    "en" | "es" | "fr"  //english, spanish, french
+    | "xd" | "xe" | "xa" | "xr"; //fake languages
+

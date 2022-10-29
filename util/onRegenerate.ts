@@ -38,6 +38,12 @@ export default function onRegenerate() {
         return true;
     }
     
+    if(CoolStorage.times === 9) {
+        CoolStorage.language = localize("xr");
+        AsyncStorage.setItem("@language", "xr");
+        return true;
+    }
+    
     const local = CoolStorage.language;
     
     Alert.alert("AnonyMail", local.address_screen.regenerate_prompt_message, [

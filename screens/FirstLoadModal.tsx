@@ -3,38 +3,41 @@ import {Component} from "react";
 import {StatusBar} from "expo-status-bar";
 import {Text} from "../components/Themed";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import CoolStorage from "../util/CoolStorage";
 
 export default class FirstLoadModal extends Component<any> {
     
     render() {
+        
+        const local = CoolStorage.language;
+        
         return (
             <ScrollView persistentScrollbar={true}>
                 <View style={styles.container}>
                     <StatusBar style="light" />
                     <Text style={styles.header}>
-                        Welcome to AnonyMail!
+                        {local.first_load_screen.welcome}
                     </Text>
                     <Text style={styles.info}>
-                        Using this app, you can generate anonymous email addresses!
+                        {local.first_load_screen.info}
                     </Text>
                     <Text style={styles.question}>
-                        What is the purpose of generating temporary emails?
+                        {local.first_load_screen.question_purpose}
                     </Text>
                     <Text style={styles.answer}>
-                        To signup for services without using your real email address.
+                        {local.first_load_screen.answer_purpose}
                     </Text>
                     <Text style={styles.question}>
-                        How long to the email addresses last for?
+                        {local.first_load_screen.question_expire}
                     </Text>
                     <Text style={styles.answer}>
-                        Email addresses expire after one hour.
+                        {local.first_load_screen.answer_expire}
                     </Text>
                     <Text style={styles.question}>
-                        Is this private and secure?
+                        {local.first_load_screen.question_secure}
                     </Text>
                     <Text style={styles.answer}>
-                        Once emails are sent to you, they are deleted from our servers.  No-one can have
-                        an email address that has already been generated.
+                        {local.first_load_screen.answer_secure}
                     </Text>
                     <TouchableHighlight
                         onPress={async (event) => {
@@ -43,7 +46,9 @@ export default class FirstLoadModal extends Component<any> {
                         }}
                     >
                         <View style={styles.start_view}>
-                            <Text style={styles.start}>Tap to generate your first email address!</Text>
+                            <Text style={styles.start}>
+                                {local.first_load_screen.exit_button}
+                            </Text>
                         </View>
                     </TouchableHighlight>
                 </View>
