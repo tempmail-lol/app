@@ -29,10 +29,16 @@ const alt = StyleSheet.create({
 
 function formatDate(date: number): string {
     //format the date in the format:
-    //Wed, Jan 1, 2020
+    //Wed, Jan 1, 2020 23:00:00
     const d = new Date(date);
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    return `${d.getDate()} ${months[d.getMonth()]}, ${d.getFullYear()}`;
+    return `${d.toDateString().split(" ")[0]}, ${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()} ${
+        d.getHours() < 10 ? "0" + d.getHours() : d.getHours()
+    }:${
+        d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()
+    }:${
+        d.getSeconds() < 10 ? "0" + d.getSeconds() : d.getSeconds()
+    }`;
 }
 
 function createEmailElement(email: Email, odd: boolean) {
@@ -43,6 +49,7 @@ function createEmailElement(email: Email, odd: boolean) {
         <Pressable onPress={() => openEmail(email)} style={ss.bg}>
             <Text style={styles.sender}>Sender: {email.from}</Text>
             <Text style={styles.subject}>Subject: {email.subject}</Text>
+            <Text style={styles.subject}>Sent to: {email.to}</Text>
             <Text style={styles.date}>Time sent: {formatDate(email.date)}</Text>
         </Pressable>
     );

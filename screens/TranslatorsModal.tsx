@@ -19,6 +19,8 @@ export default class TranslatorsModal extends Component<any> {
                 <Button title={"Aidan Powell's LinkedIn"} onPress={() => openLinkedIn("aidanpowell")}/>
                 <Text style={styles.lang}>Spanish (Español)</Text>
                 <Text style={styles.translator}>The Spanish translations were made using OpenAI, and not by a human.  They may not be perfectly accurate.</Text>
+                <Text style={styles.lang}>Turkish (Türkçe)</Text>
+                <Text style={styles.translator}>The Turkish translations were made using OpenAI, and not by a human.  They may not be perfectly accurate.</Text>
             </ScrollView>
         )
     }

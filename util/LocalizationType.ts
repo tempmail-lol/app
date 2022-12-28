@@ -46,10 +46,25 @@ export type LocalizationType = {
         languages: string,
         language_change_message: string,
         credits_button_label: string,
+        remove_ads_label: string,
+        clear_data: string,
+        clear_data_warning: string,
+        biometric_login_switch_label: string,
     },
     other: {
         addresses_tab: string,
         emails_tab: string,
         settings_tab: string,
-    }
+    },
+    // remove_ads_screen: {
+    //     title: string,
+    //     text_android: string,
+    //     connecting: string,
+    //     info: string,
+    //     success: string,
+    //     error: string,
+    //     purchase_button: string,
+    //     restore_button: string,
+    //     failed_to_connect: string,
+    // }
 };

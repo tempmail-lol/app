@@ -14,6 +14,7 @@ import ModalShareThingy from "../util/ModalShareThingy";
 import {AdMobBanner} from "expo-ads-admob";
 import {requestTrackingPermissionsAsync} from "expo-tracking-transparency";
 import {DeviceType, getDeviceTypeAsync} from "expo-device";
+import formatNumber from "../util/formatNumber";
 
 async function getEmails(token: string): Promise<Email[]> {
     //TODO add TOR or Lokinet functionality once it becomes easy to do.
@@ -33,8 +34,8 @@ function Button(props: { onPress: any; title: string }) {
 async function getStats(): Promise<{clients_connected: string, emails_received: string}> {
     const data = await (await fetch("https://api.tempmail.lol/stats")).json();
     return {
-        clients_connected: `${data.clients_connected}`,
-        emails_received: `${data.emails_received}`,
+        clients_connected: `${formatNumber(data.clients_connected)}`,
+        emails_received: `${formatNumber(data.emails_received)}`,
     };
 }
 
@@ -52,8 +53,8 @@ export default function EmailScreen() {
     
     if(emailsReceived === "[loading]") {
         getStats().then((r) => {
-            setClientsConnected(r.clients_connected);
             setEmailsReceived(r.emails_received);
+            setClientsConnected(r.clients_connected);
         });
     }
     
@@ -84,16 +85,7 @@ export default function EmailScreen() {
                 try {
                     const data = await checkInboxAsync(token);
                     if (data.length > 0) {
-                        //stored_emails is an array of emails
-                        const stored_emails = await AsyncStorage.getItem("@stored_emails");
-                        let se_array: Email[] = [];
-                        
-                        if (stored_emails) {
-                            se_array = JSON.parse(stored_emails);
-                        }
-                        
                         CoolStorage.emails = CoolStorage.emails.concat(data);
-                        CoolStorage.emails = CoolStorage.emails.concat(se_array);
                     }
                     
                     const address = await AsyncStorage.getItem("@email_address");
@@ -133,12 +125,12 @@ export default function EmailScreen() {
                     //add the emails to the storage
                     CoolStorage.emails = CoolStorage.emails.concat(emails);
                     //add the emails to the storage
-                    await AsyncStorage.setItem("@stored_emails", JSON.stringify(CoolStorage.emails));
+                    await AsyncStorage.setItem("@emails", JSON.stringify(CoolStorage.emails));
                     
                     //fetch the stats
                     getStats().then((r) => {
-                        setClientsConnected(r.clients_connected);
                         setEmailsReceived(r.emails_received);
+                        setClientsConnected(r.clients_connected);
                     });
                 } catch (e) { //if the token is invalid
                     await reloadAsync();
@@ -234,6 +226,7 @@ const styles = StyleSheet.create({
     },
     stats: {
         fontSize: Math.min(Math.max(Math.floor(Dimensions.get('window').width / 20), 12), 24),
+        fontFamily: "Roboto_400Regular",
         marginBottom: 24,
         textAlign: "center",
         paddingLeft: 2,

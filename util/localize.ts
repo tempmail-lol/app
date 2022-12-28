@@ -8,6 +8,7 @@ import xe from "./localized/xe";
 import xa from "./localized/xa";
 import es from "./localized/es";
 import xr from "./localized/xr";
+import tr from "./localized/tr";
 
 export default function(lang: LangType): LocalizationType {
     switch(lang) {
@@ -25,6 +26,8 @@ export default function(lang: LangType): LocalizationType {
             return es;
         case "xr":
             return xr;
+        case "tr":
+            return tr;
         default:
             return en;
     }

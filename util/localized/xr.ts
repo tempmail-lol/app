@@ -62,6 +62,10 @@ const loc: LocalizationType = {
         languages: randomLetters(),
         language_change_message: randomLetters(),
         credits_button_label: randomLetters(),
+        remove_ads_label: "Remove Ads",
+        clear_data: randomLetters(),
+        clear_data_warning: randomLetters(),
+        biometric_login_switch_label: randomLetters(),
     },
     other: {
         addresses_tab: randomLetters(),

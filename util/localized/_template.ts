@@ -49,6 +49,9 @@ const loc: LocalizationType = {
         languages: "",
         language_change_message: "",
         credits_button_label: "",
+        remove_ads_label: "",
+        clear_data: "",
+        clear_data_warning: "",
     },
     other: {
         addresses_tab: "",

@@ -17,6 +17,8 @@ export default class CoolStorage {
     public static easter_egg_time: boolean = false;
     public static times: number = 0;
     
+    public static easterEggDone: boolean = false;
+    
     public static emails: Email[] = [];
     
 }
@@ -30,4 +32,18 @@ AsyncStorage.getItem("@language").then(async (value) => {
         CoolStorage.language = localize(Localization.locale.substring(0, 2) as LangType);
         await AsyncStorage.setItem("@language", Localization.locale.substring(0, 2));
     }
+});
+
+//set easter egg
+AsyncStorage.getItem("@easter_egg").then(r => {
+    if(r === "true") {
+        console.log(`easter egg is true`);
+        CoolStorage.easterEggDone = true;
+    }
+});
+
+AsyncStorage.getItem("@emails").then(emails => {
+    if(!emails) return;
+
+    CoolStorage.emails = JSON.parse(emails) as Email[];
 });

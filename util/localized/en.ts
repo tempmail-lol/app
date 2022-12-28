@@ -1,4 +1,5 @@
 import {LocalizationType} from "../LocalizationType";
+import {Platform} from "react-native";
 
 //i would do export {} as Localization, but my ide doesn't do type checking for that
 const loc: LocalizationType = {
@@ -20,7 +21,7 @@ const loc: LocalizationType = {
         copy_message: "Copied to clipboard!",
         copy_fail: "Failed to copy, please try again.",
         regenerate_button: "Regenerate",
-        regenerate_prompt_message: "Are you sure?  Your old email will be deleted as well as your inbox.",
+        regenerate_prompt_message: "Are you sure?  Your old email will be deleted.",
         regenerate_prompt_no: "No",
         regenerate_prompt_yes: "Yes",
     },
@@ -53,7 +54,12 @@ const loc: LocalizationType = {
         version: "You are using AnonyMail version %VERSION%",
         languages: "Languages:",
         language_change_message: "Please restart the app for the language change to fully take effect.",
-        credits_button_label: "View translators"
+        credits_button_label: "View translators",
+        remove_ads_label: "Remove Ads",
+        clear_data: "Clear Data",
+        clear_data_warning: "Are you sure you want to clear all of your data for AnonyMail?\n\n" +
+            "This will irreversibly delete all emails stored on your device, and the app will be reset to its default state.",
+        biometric_login_switch_label: Platform.OS === "ios" ? "Face ID or Touch ID" : "Biometric Login",
     },
     other: {
         addresses_tab: "Address",

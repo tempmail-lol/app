@@ -11,6 +11,8 @@ import {Picker} from "@react-native-picker/picker";
 import CoolStorage from "../util/CoolStorage";
 import localize from "../util/localize";
 import {LangType} from "../util/LangType";
+import {reloadAsync} from "expo-updates";
+import * as LocalAuthentication from "expo-local-authentication";
 
 async function openSource() {
     const url = "https://github.com/tempmail-lol/app";
@@ -33,6 +35,10 @@ function openCredits() {
     ModalShareThingy.modal.navigate("Credits");
 }
 
+function removeAds() {
+    ModalShareThingy.modal.navigate("RemoveAds");
+}
+
 async function openPrivacyPolicy() {
     await Linking.openURL("https://tempmail.lol/privacy-policy.html");
 }
@@ -44,6 +50,7 @@ export default function TabTwoScreen() {
     const [scriptingEnabled, setScriptingEnabled] = useState(false);
     const [alternativeDomains, setAlternativeDomains] = useState(false);
     const [imagesEnabled, setImagesEnabled] = useState(false);
+    const [biometricLoginEnabled, setBiometricLoginEnabled] = useState(false);
     const [selectedLanguage, setSelectedLanguage] = useState("en");
     
     AsyncStorage.getItem("@js_enabled").then(r => {
@@ -78,8 +85,7 @@ export default function TabTwoScreen() {
             Alert.alert("AnonyMail", local.settings_screen.javascript_enable_warning, [
                 {
                     text: local.settings_screen.javascript_enable_warning_decline,
-                    onPress: () => {
-                    },
+                    onPress() {},
                     style: "cancel",
                 },
                 {
@@ -151,6 +157,56 @@ export default function TabTwoScreen() {
         return false;
     }));
     
+    const clearData = async () => {
+        Alert.alert("AnonyMail", local.settings_screen.clear_data_warning, [
+            {
+                text: local.settings_screen.cancel,
+                onPress: () => {
+                },
+                style: "cancel",
+            },
+            {
+                text: local.settings_screen.clear_data,
+                onPress: async () => {
+                    await AsyncStorage.clear();
+                    await reloadAsync();
+                }
+            }
+        ]);
+    };
+    
+    const toggleBiometricLogin = async () => {
+        const compatible = await LocalAuthentication.hasHardwareAsync();
+        
+        if(!compatible) {
+            Alert.alert("AnonyMail", "Your device does not support biometrics.");
+            return;
+        }
+        
+        const enrolled = await LocalAuthentication.isEnrolledAsync();
+        
+        if(!enrolled) {
+            Alert.alert("AnonyMail", "You have not enrolled in biometrics.");
+            return;
+        }
+        
+        if(biometricLoginEnabled) {
+            setBiometricLoginEnabled(false);
+            await AsyncStorage.setItem("@biometrics", "false");
+            return;
+        }
+        
+        const res = await LocalAuthentication.authenticateAsync();
+        
+        if(res.success) {
+            setBiometricLoginEnabled(true);
+            await AsyncStorage.setItem("@biometrics", "true");
+        } else {
+            alert("Please try again.");
+        }
+        
+    };
+    
     return (
         <ScrollView style={styles.scrollView}>
             <View style={styles.container}>
@@ -159,6 +215,8 @@ export default function TabTwoScreen() {
                 <Button title={local.settings_screen.source_code_button_label} onPress={openSource}/>
                 <Button title={local.settings_screen.privacy_policy_button_label} onPress={openPrivacyPolicy}/>
                 <Button title={local.settings_screen.credits_button_label} onPress={openCredits}/>
+                {/*<Button title={local.settings_screen.remove_ads_label} onPress={removeAds}/>*/}
+                <Button title={local.settings_screen.clear_data} onPress={clearData} />
                 <Text style={styles.switchText}>{local.settings_screen.javascript_switch_label}</Text>
                 <Switch
                     value={scriptingEnabled}
@@ -173,6 +231,11 @@ export default function TabTwoScreen() {
                 <Switch
                     value={imagesEnabled}
                     onValueChange={toggleImages}
+                />
+                <Text style={styles.switchText}>{local.settings_screen.biometric_login_switch_label}</Text>
+                <Switch
+                    value={biometricLoginEnabled}
+                    onValueChange={toggleBiometricLogin}
                 />
                 <Text style={styles.version}>{local.settings_screen.version.replace("%VERSION%", version)}</Text>
                 <Text style={styles.version}>{local.settings_screen.languages}</Text>
@@ -192,8 +255,21 @@ export default function TabTwoScreen() {
                     itemStyle={styles.pickerItem}
                 >
                     <Picker.Item label="English" value="en" />
-                    <Picker.Item label="French" value="fr" />
-                    <Picker.Item label="Spanish" value="es" />
+                    <Picker.Item label="French (Français)" value="fr" />
+                    <Picker.Item label="Spanish (Español)" value="es" />
+                    <Picker.Item label="Turkish (Türkçe)" value="tr" />
+                    {
+                        CoolStorage.easterEggDone ? (<Picker.Item label="ENGLISH (CapsLock)" value="xa" />) : null
+                    }
+                    {
+                        CoolStorage.easterEggDone ? (<Picker.Item label="English (Pirate Speak)" value="xd" />) : null
+                    }
+                    {
+                        CoolStorage.easterEggDone ? (<Picker.Item label="English (undefined)" value="xe" />) : null
+                    }
+                    {
+                        CoolStorage.easterEggDone ? (<Picker.Item label="English (Random)" value="xr" />) : null
+                    }
                 </Picker>
             </View>
         </ScrollView>

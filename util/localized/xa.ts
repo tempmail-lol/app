@@ -20,7 +20,7 @@ const loc: LocalizationType = {
         copy_message: "Copied to clipboard!".toUpperCase(),
         copy_fail: "Failed to copy, please try again.".toUpperCase(),
         regenerate_button: "Regenerate".toUpperCase(),
-        regenerate_prompt_message: "Are you sure?  Your old email will be deleted as well as your inbox.".toUpperCase(),
+        regenerate_prompt_message: "Are you sure?  Your old email will be deleted.".toUpperCase(),
         regenerate_prompt_no: "No".toUpperCase(),
         regenerate_prompt_yes: "Yes".toUpperCase(),
     },
@@ -53,13 +53,16 @@ const loc: LocalizationType = {
         version: "You are using AnonyMail version %VERSION%".toUpperCase(),
         languages: "Languages:".toUpperCase(),
         language_change_message: "You will need to restart the app to change languages.".toUpperCase(),
-        credits_button_label: "VIEW TRANSLATORS"
+        credits_button_label: "VIEW TRANSLATORS",
+        remove_ads_label: "REMOVE ADS",
+        clear_data: "CLEAR DATA",
+        clear_data_warning: `Are you sure you want to clear all of your data for AnonyMail?\n\nThis will irreversibly delete all emails stored on your device, and the app will be reset to its default state.`.toUpperCase(),
     },
     other: {
         addresses_tab: "ADDRESS",
         emails_tab: "EMAILS",
         settings_tab: "SETTINGS",
-    }
+    },
 };
 
 export default loc;

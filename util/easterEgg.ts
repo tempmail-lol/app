@@ -1,14 +1,14 @@
 import {Linking} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function(times: number): boolean {
     switch(times) {
-        case 10: alert("You do know you don't have to click copy so many times, right?"); break;
+        case 10: alert("You do know you don't have to click copy so many times, right?"); AsyncStorage.setItem("@easter_egg", "true"); break;
         case 20: alert("Didn't you read the last message?  THE. EMAIL. IS. ON. YOUR. CLIPBOARD."); break;
         case 30: alert("Doesn't your finger hurt from tapping so many times?"); break;
         case 40: alert("Please stop."); break;
         case 50: alert("Halfway to 100!  Tired yet?"); break;
         case 60: alert("That's 60 times now..."); break;
-        case 69: alert("nice."); break;
         case 70: alert("Nothing better to do with your time?"); break;
         case 80: alert("How about a break?  Go do something fun."); break;
         case 90: alert("Are you serious?"); break;
@@ -41,16 +41,12 @@ export default function(times: number): boolean {
         case 400: alert("400..."); break;
         case 500: alert("We're at 500... are you sure you don't have anything better to do?"); break;
         case 600: alert("600 and counting....."); break;
-        case 700: alert("700 :/"); break;
-        case 800: alert("why are you doing this"); break;
-        case 900: alert("don't tell me... 900?"); break;
+        case 700: alert("700"); break;
+        case 800: alert("Why are you doing this"); break;
+        case 900: alert("Don't tell me... 900?"); break;
         case 998: alert("Congrats, you're at 998; however, if you click copy again the app will crash."); break;
         case 999: throw new Error();
         case 1000: alert("Well looks like it didn't.  I'm not testing to see if it crashes or not.  I'll assume that it won't."); break;
-        case 1002: alert("I think it might be raining outside, why don't you hit Copy again to check?"); break;
-        case 1003: Linking.openURL("https://weather.com"); break;
-        case 1004: alert("How is the weather?"); break;
-        case 1005: times = 0; break;
         default: return false;
     }
     

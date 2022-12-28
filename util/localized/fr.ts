@@ -1,4 +1,5 @@
 import {LocalizationType} from "../LocalizationType";
+import {Platform} from "react-native";
 
 //i would do export {} as Localization, but my ide doesn't do type checking for that
 const loc: LocalizationType = {
@@ -20,7 +21,7 @@ const loc: LocalizationType = {
         copy_message: "Copié dans le presse-papier!",
         copy_fail: "Échec de copie, réessayez s'il vous plaît.",
         regenerate_button: "Générer une nouvelle adresse",
-        regenerate_prompt_message: "Souhaitez-vous supprimer votre adresse e-mail? Votre ancienne adresse e-mail et votre ancienne boîte de réception sera supprimée.",
+        regenerate_prompt_message: "Souhaitez-vous supprimer votre adresse e-mail? Votre ancienne adresse e-mail sera supprimée.",
         regenerate_prompt_no: "Non",
         regenerate_prompt_yes: "Oui",
     },
@@ -53,7 +54,11 @@ const loc: LocalizationType = {
         version: "Vous utilisez AnonyMail version %VERSION%",
         languages: "Langues:",
         language_change_message: "Redémarrez votre application pour les changements",
-        credits_button_label: "Voir les traducteurs"
+        credits_button_label: "Voir les traducteurs",
+        remove_ads_label: "Supprimez la pub",
+        clear_data: "Supprimer les données",
+        clear_data_warning: `Êtes-vous sûr de vouloir effacer toutes vos données pour AnonyMail?\n\nCela supprimera de manière irréversible tous les emails stockés sur votre appareil et l'application sera réinitialisée à son état par défaut.`,
+        biometric_login_switch_label: Platform.OS === "ios" ? "Face ID ou Touch ID" : "Connexion biométrique",
     },
     other: {
         addresses_tab: "Adresses",

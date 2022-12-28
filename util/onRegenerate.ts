@@ -11,7 +11,7 @@ import localize from "./localize";
 export default function onRegenerate() {
     
     if(CoolStorage.times === 5) {
-        //remove the 
+        //remove the lecture key
         AsyncStorage.removeItem("@lecture_1");
         return true;
     }
@@ -20,7 +20,6 @@ export default function onRegenerate() {
     //6 times and then clicked the regenerate button.
     if(CoolStorage.times === 6) {
         CoolStorage.language = localize("xd");
-        AsyncStorage.setItem("@language", "xd");
         return true;
     }
     
@@ -28,19 +27,16 @@ export default function onRegenerate() {
     //7 times and then clicked the regenerate button.
     if(CoolStorage.times === 7) {
         CoolStorage.language = localize("xe");
-        AsyncStorage.setItem("@language", "xe");
         return true;
     }
     
     if(CoolStorage.times === 8) {
         CoolStorage.language = localize("xa");
-        AsyncStorage.setItem("@language", "xa");
         return true;
     }
     
     if(CoolStorage.times === 9) {
         CoolStorage.language = localize("xr");
-        AsyncStorage.setItem("@language", "xr");
         return true;
     }
     
@@ -55,10 +51,8 @@ export default function onRegenerate() {
                 //reload the expo app to clear the inbox
                 CoolStorage.token = "";
                 CoolStorage.address = "";
-                CoolStorage.emails = [];
                 await AsyncStorage.removeItem("@email_token");
                 await AsyncStorage.removeItem("@email_address");
-                await AsyncStorage.removeItem("@stored_emails");
                 await reloadAsync();
             }),
         },

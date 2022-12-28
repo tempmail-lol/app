@@ -1,4 +1,5 @@
 import {LocalizationType} from "../LocalizationType";
+import {Platform} from "react-native";
 
 const loc: LocalizationType = {
     first_load_screen: {
@@ -54,6 +55,11 @@ const loc: LocalizationType = {
         languages: "Idiomas",
         language_change_message: "Por favor, reinicia la aplicación para que el cambio de idioma surta efecto completamente. Nota: las traducciones al español se realizan usando OpenAI, por lo que pueden no ser completamente precisas.",
         credits_button_label: "Ver traductores",
+        remove_ads_label: "Quitar anuncios",
+        clear_data: "Borrar datos",
+        clear_data_warning: "¿Estás seguro de que quieres borrar todos tus datos de AnonyMail?\n\n" +
+            "Esto borrará de forma irreversible todos los correos electrónicos almacenados en tu dispositivo y la aplicación se reiniciará a su estado predeterminado.",
+        biometric_login_switch_label: Platform.OS === "ios" ? "Face ID o Touch ID" : "Inicio de sesión biométrica",
     },
     other: {
         addresses_tab: "Correo",

@@ -49,6 +49,10 @@ const loc: LocalizationType = {
         languages: "undefined",
         language_change_message: "undefined",
         credits_button_label: "undefined",
+        remove_ads_label: "undefined",
+        clear_data_warning: "undefined",
+        clear_data: "undefined",
+        biometric_login_switch_label: "undefined",
     },
     other: {
         addresses_tab: "undefined",
