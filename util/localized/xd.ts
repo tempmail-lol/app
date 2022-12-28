@@ -59,7 +59,8 @@ const loc: LocalizationType = {
         remove_ads_label: "Remove Ads",
         clear_data: "Clear Data",
         clear_data_warning: "Arr, are ye sure?  Ye will lose all yer data.",
-        biometric_login_switch_label: "Scan ye biomechanical data",
+        biometric_login_switch_label: "Scan ye biometric data",
+        biometric_enable_message: "Enable ye biometric data?  Ye need it fer opening ye app.",
     },
     other: {
         addresses_tab: "On Deck",

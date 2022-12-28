@@ -59,6 +59,9 @@ const loc: LocalizationType = {
         clear_data: "Supprimer les données",
         clear_data_warning: `Êtes-vous sûr de vouloir effacer toutes vos données pour AnonyMail?\n\nCela supprimera de manière irréversible tous les emails stockés sur votre appareil et l'application sera réinitialisée à son état par défaut.`,
         biometric_login_switch_label: Platform.OS === "ios" ? "Face ID ou Touch ID" : "Connexion biométrique",
+        biometric_enable_message: Platform.OS === "ios"
+            ? "Activer Face ID ou Touch ID ? Vous devrez l'utiliser chaque fois que vous ouvrez AnonyMail."
+            : "Activer la connexion biométrique? Vous devrez l'utiliser chaque fois que vous ouvrez AnonyMail.",
     },
     other: {
         addresses_tab: "Adresses",

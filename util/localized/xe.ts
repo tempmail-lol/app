@@ -53,6 +53,7 @@ const loc: LocalizationType = {
         clear_data_warning: "undefined",
         clear_data: "undefined",
         biometric_login_switch_label: "undefined",
+        biometric_enable_message: "undefined",
     },
     other: {
         addresses_tab: "undefined",

@@ -1,4 +1,4 @@
-import {Alert, Button, Linking, ScrollView, StyleSheet, Switch} from 'react-native';
+import {Alert, Button, Linking, Platform, ScrollView, StyleSheet, Switch} from 'react-native';
 
 import {Text, View} from '../components/Themed';
 import {StatusBar} from "expo-status-bar";
@@ -74,6 +74,12 @@ export default function TabTwoScreen() {
     AsyncStorage.getItem("@language").then((r) => {
         if(r) {
             setSelectedLanguage(r);
+        }
+    });
+    
+    AsyncStorage.getItem("@biometrics").then((r) => {
+        if(r && r === "true") {
+            setBiometricLoginEnabled(true);
         }
     });
     
@@ -176,6 +182,13 @@ export default function TabTwoScreen() {
     };
     
     const toggleBiometricLogin = async () => {
+        console.log(`biometricLoginEnabled: ${biometricLoginEnabled}`);
+        if(biometricLoginEnabled) {
+            setBiometricLoginEnabled(false);
+            await AsyncStorage.setItem("@biometrics", "false");
+            return;
+        }
+        
         const compatible = await LocalAuthentication.hasHardwareAsync();
         
         if(!compatible) {
@@ -186,24 +199,45 @@ export default function TabTwoScreen() {
         const enrolled = await LocalAuthentication.isEnrolledAsync();
         
         if(!enrolled) {
-            Alert.alert("AnonyMail", "You have not enrolled in biometrics.");
+            Alert.alert("AnonyMail",
+                Platform.OS === "ios" ?
+                    "Face ID or Touch ID are not setup on this device." :
+                    "Biometrics are not setup on this device."
+            );
             return;
         }
         
-        if(biometricLoginEnabled) {
-            setBiometricLoginEnabled(false);
-            await AsyncStorage.setItem("@biometrics", "false");
-            return;
+        async function enroll() {
+            
+            if(biometricLoginEnabled) {
+                setBiometricLoginEnabled(false);
+                await AsyncStorage.setItem("@biometrics", "false");
+                return;
+            }
+            
+            const res = await LocalAuthentication.authenticateAsync();
+            
+            if(res.success) {
+                setBiometricLoginEnabled(true);
+                await AsyncStorage.setItem("@biometrics", "true");
+            } else {
+                alert("Please try again.");
+            }
         }
         
-        const res = await LocalAuthentication.authenticateAsync();
-        
-        if(res.success) {
-            setBiometricLoginEnabled(true);
-            await AsyncStorage.setItem("@biometrics", "true");
-        } else {
-            alert("Please try again.");
-        }
+        Alert.alert("AnonyMail", local.settings_screen.biometric_enable_message, [
+            {
+                text: local.settings_screen.enable,
+                style: "default",
+                onPress() {
+                    enroll();
+                }
+            },
+            {
+                text: local.settings_screen.cancel,
+                style: "cancel",
+            },
+        ]);
         
     };
     

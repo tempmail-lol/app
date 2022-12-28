@@ -1,4 +1,5 @@
 import {LocalizationType} from "../LocalizationType";
+import en from "./en";
 
 //i would do export {} as Localization, but my ide doesn't do type checking for that
 const loc: LocalizationType = {
@@ -57,6 +58,8 @@ const loc: LocalizationType = {
         remove_ads_label: "REMOVE ADS",
         clear_data: "CLEAR DATA",
         clear_data_warning: `Are you sure you want to clear all of your data for AnonyMail?\n\nThis will irreversibly delete all emails stored on your device, and the app will be reset to its default state.`.toUpperCase(),
+        biometric_enable_message: en.settings_screen.biometric_enable_message.toUpperCase(),
+        biometric_login_switch_label: en.settings_screen.biometric_login_switch_label.toUpperCase(),
     },
     other: {
         addresses_tab: "ADDRESS",

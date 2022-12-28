@@ -66,6 +66,7 @@ const loc: LocalizationType = {
         clear_data: randomLetters(),
         clear_data_warning: randomLetters(),
         biometric_login_switch_label: randomLetters(),
+        biometric_enable_message: randomLetters(),
     },
     other: {
         addresses_tab: randomLetters(),

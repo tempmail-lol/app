@@ -1,4 +1,5 @@
 import {LocalizationType} from "../LocalizationType";
+import {Platform} from "react-native";
 
 const loc: LocalizationType = {
     first_load_screen: {
@@ -52,6 +53,12 @@ const loc: LocalizationType = {
         remove_ads_label: "",
         clear_data: "",
         clear_data_warning: "",
+        biometric_login_switch_label: Platform.OS === "ios"
+            ? ""
+            : "",
+        biometric_enable_message: Platform.OS === "ios"
+            ? ""
+            : "",
     },
     other: {
         addresses_tab: "",

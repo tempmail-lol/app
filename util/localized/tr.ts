@@ -1,4 +1,5 @@
 import {LocalizationType} from "../LocalizationType";
+import {Platform} from "react-native";
 
 const loc: LocalizationType = {
     first_load_screen: {
@@ -56,6 +57,10 @@ const loc: LocalizationType = {
         clear_data: "Veriyi Temizle",
         clear_data_warning: "AnonyMail için tüm verilerinizi temizlemek istediğinize emin misiniz?\n\n" + 
             "Bu, cihazınızda depolanan tüm e-postaları geri dönüşü olmayan bir şekilde siler ve uygulama varsayılan durumuna sıfırlanır.",
+        biometric_login_switch_label: Platform.OS === "ios" ? "FaceID veya TouchID" : "Biyometrik Giriş",
+        biometric_enable_message: Platform.OS === "ios"
+            ? "Face ID veya Touch ID'yi etkinleştir? AnonyMail'i her açtığınızda bu kullanmanız gerekecek."
+            : "Biometrik girişi etkinleştirilsin mi? Her AnonyMail'i açtığınızda bunu kullanmanız gerekecek."
     },
     other: {
         addresses_tab: "Adres",

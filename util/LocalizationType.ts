@@ -50,6 +50,7 @@ export type LocalizationType = {
         clear_data: string,
         clear_data_warning: string,
         biometric_login_switch_label: string,
+        biometric_enable_message: string,
     },
     other: {
         addresses_tab: string,
