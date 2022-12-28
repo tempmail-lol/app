@@ -3,12 +3,15 @@ import CoolStorage from "./CoolStorage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {reloadAsync} from "expo-updates";
 import localize from "./localize";
+import {createInboxAsync} from "tempmail.lol";
 
 /**
  * On the regenerate button.
+ * 
+ * @param rush_enabled {boolean} if rush mode is currently enabled.
  * @returns {boolean} true if the home screen should refresh, false otherwise.
  */
-export default function onRegenerate() {
+export default function onRegenerate(rush_enabled: boolean): boolean {
     
     if(CoolStorage.times === 5) {
         //remove the lecture key
@@ -49,11 +52,18 @@ export default function onRegenerate() {
             onPress: (async () => {
                 console.log(`clearing inbox`);
                 //reload the expo app to clear the inbox
-                CoolStorage.token = "";
-                CoolStorage.address = "";
-                await AsyncStorage.removeItem("@email_token");
-                await AsyncStorage.removeItem("@email_address");
-                await reloadAsync();
+                
+                const inbox = await createInboxAsync(rush_enabled);
+                
+                console.log(JSON.stringify(inbox));
+                
+                CoolStorage.token = inbox.token;
+                CoolStorage.address = inbox.address;
+                
+                await AsyncStorage.setItem("@email_token", inbox.token);
+                await AsyncStorage.setItem("@email_address", inbox.address);
+                
+                CoolStorage.emailRefresh = true;
             }),
         },
         {

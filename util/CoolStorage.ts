@@ -21,6 +21,8 @@ export default class CoolStorage {
     
     public static emails: Email[] = [];
     
+    public static emailRefresh: boolean = false;
+    
 }
 
 //if the user has an overridden language, use it instead of the default.

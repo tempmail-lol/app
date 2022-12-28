@@ -16,12 +16,6 @@ import {requestTrackingPermissionsAsync} from "expo-tracking-transparency";
 import {DeviceType, getDeviceTypeAsync} from "expo-device";
 import formatNumber from "../util/formatNumber";
 
-async function getEmails(token: string): Promise<Email[]> {
-    //TODO add TOR or Lokinet functionality once it becomes easy to do.
-    //if you have a way of connecting to TOR using pure JS let me know.
-    return checkInboxAsync(token);
-}
-
 function Button(props: { onPress: any; title: string }) {
     const {onPress, title = 'Save'} = props;
     return (
@@ -48,6 +42,14 @@ export default function EmailScreen() {
     const [clientsConnected, setClientsConnected] = useState("[loading]");
     const [personalizedAds, setPersonalizedAds] = useState(false);
     const [bannerSize, setBannerSize] = useState("banner" as BannerSize);
+    
+    if(CoolStorage.emailRefresh) {
+        setEmail("");
+        CoolStorage.emailRefresh = false;
+        AsyncStorage.getItem("@email_address").then((r) => {
+            r && setEmail(r);
+        });
+    }
     
     console.log(email);
     
@@ -121,7 +123,7 @@ export default function EmailScreen() {
             
             async function task() {
                 try {
-                    const emails = await getEmails(CoolStorage.token);
+                    const emails = await checkInboxAsync(CoolStorage.token);
                     //add the emails to the storage
                     CoolStorage.emails = CoolStorage.emails.concat(emails);
                     //add the emails to the storage
@@ -177,14 +179,18 @@ export default function EmailScreen() {
                     onPress={async () => await onCopy(email)}/>
                 <Button
                     title={local.address_screen.regenerate_button}
-                    onPress={() => {
-                        const u = onRegenerate();
+                    onPress={async () => {
+                        const isRushMode = (await AsyncStorage.getItem("@rush_mode")) === "true";
+                        const u = onRegenerate(isRushMode);
                         if(u) {
                             //stupid hack but it reloads the page
                             setClientsConnected(`${Number(clientsConnected) + 1}`);
                         }
                     }}/>
             </View>
+            <Text style={styles.hidden}>
+                {CoolStorage.emailRefresh + "a"}
+            </Text>
             <View style={styles.ad}>
                 <AdMobBanner
                     bannerSize={bannerSize}
@@ -203,6 +209,8 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         // fontFamily: "Ubuntu",
+    },
+    hidden: {
     },
     email: {
         //dynamically change the font size to fit the width of the screen
