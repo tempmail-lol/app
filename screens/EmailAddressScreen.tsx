@@ -189,7 +189,7 @@ export default function EmailScreen() {
                     }}/>
             </View>
             <Text style={styles.hidden}>
-                {CoolStorage.emailRefresh + "a"}
+                {CoolStorage.emailRefresh}
             </Text>
             <View style={styles.ad}>
                 <AdMobBanner

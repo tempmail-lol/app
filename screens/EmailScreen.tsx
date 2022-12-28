@@ -86,11 +86,14 @@ export default function EmailScreen() {
     
     const local = CoolStorage.language;
     
+    //reverse the emails so that the newest emails are at the top
+    const displayEmails = emails.reverse();
+    
     return (
         <View style={styles.container}>
             <StatusBar style="light" />
             <Text style={styles.tapHelper}>{local.email_screen.prompt}</Text>
-            <FlatList data={emails} renderItem={({item, index}) => {
+            <FlatList data={displayEmails} renderItem={({item, index}) => {
                 return createEmailElement(item, index % 2 === 0);
             }}/>
             <View style={styles.ad}>
