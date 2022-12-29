@@ -10,9 +10,9 @@ import EasterEggScreen from "./screens/EasterEggScreen";
 import {useState} from "react";
 import {Ubuntu_300Light} from "@expo-google-fonts/ubuntu";
 import {Roboto_400Regular} from "@expo-google-fonts/roboto";
-import {Alert, View} from "react-native";
+import {Alert, Platform, View} from "react-native";
 
-import * as LocalAuthentication from "expo-local-authentication";
+//import * as LocalAuthentication from "expo-local-authentication";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // noinspection JSUnusedGlobalSymbols
@@ -32,16 +32,43 @@ export default function App() {
     
     //biometrics
     (async () => {
-        
-        if(scouting) return;
-        setScouting(true);
-        
         try {
+            
+            
+            
+            if(scouting || biometricsScoutComplete) return;
+            
+            //TODO if you know how to fix this, please do
+            //for some reason, android does not work with fingerprint scanners.
+            if(Platform.OS === "android") {
+                setScouting(false);
+                setBiometricsScoutComplete(true);
+                return;
+            }
+            
+            const LocalAuthentication = require("expo-local-authentication");
+            
+            setScouting(true);
+            
+            
             
             const a = await AsyncStorage.getItem("@biometrics");
             
             if(!a || a === "false") {
                 setBiometricsScoutComplete(true);
+                setScouting(false);
+                return;
+            }
+            
+            if(!(await LocalAuthentication.hasHardwareAsync())) {
+                setBiometricsScoutComplete(true);
+                setScouting(false);
+                return;
+            }
+            
+            if(!(await LocalAuthentication.isEnrolledAsync())) {
+                setBiometricsScoutComplete(true);
+                setScouting(false);
                 return;
             }
             

@@ -182,6 +182,13 @@ export default function TabTwoScreen() {
     };
     
     const toggleBiometricLogin = async () => {
+        
+        if(Platform.OS === "android") {
+            Alert.alert("AnonyMail", "Biometric login is not supported on Android yet." +
+                "See https://github.com/tempmail-lol/app/issues/8 for more information.");
+            return;
+        }
+        
         console.log(`biometricLoginEnabled: ${biometricLoginEnabled}`);
         if(biometricLoginEnabled) {
             setBiometricLoginEnabled(false);

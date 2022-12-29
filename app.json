@@ -21,9 +21,15 @@
     ],
     "ios": {
       "infoPlist": {
-        "NSFaceIDUsageDescription": "This app can use Face ID or Touch ID to protect emails stored on-device."
+        "NSFaceIDUsageDescription": "This app can use Face ID or Touch ID to protect emails stored on-device.",
+        "NSUserTrackingUsageDescription": "This identifier will be used to deliver personalized ads to you.",
+        "SKAdNetworkItems": [
+          {
+            "SKAdNetworkIdentifier": "cstr6suwn9.skadnetwork"
+          }
+        ]
       },
-      "buildNumber": "3",
+      "buildNumber": "4",
       "supportsTablet": true,
       "bundleIdentifier": "net.epolite.tempmail",
       "icon": "./assets/images/icon.png",
@@ -76,6 +82,11 @@
           "userTrackingPermission": "This identifier will be used to deliver personalized ads to you."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "92232218-e54c-4ba2-9a6d-141c1a89bb80"
+      }
+    }
   }
 }

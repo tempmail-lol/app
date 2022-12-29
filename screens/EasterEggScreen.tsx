@@ -49,7 +49,7 @@ const story = [
     "It had scales the size of shields, no eyes, and a large mouth.",
     "It started to approach the castle.  As it did, our swordsman knew he was outmatched.",
     "\"Did this beast cause this?\"  The swordsman thought.  \"If it did, what chance do I have of defeating it?\"",
-    "Suddenly, the beast launched itself hundreds of feed towards the castle.  Its arms were the size of the drawbridge, and its tail was longer than the castle is tall.",
+    "Suddenly, the beast launched itself hundreds of feet towards the castle.  Its arms were the size of the drawbridge, and its tail was longer than the castle is tall.",
     "Its hand had reached into the floor the swordsman was on; however, the decrepit floor did not give out.",
     "The beast stuck its head into the building.  It looked at the swordsman and told it telepathically,\n\"You must go into the portal.\"",
     "Our swordsman asked why, but the beast insisted.",
